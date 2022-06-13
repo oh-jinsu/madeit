@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:madeit/application/effects/env.dart';
+import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/composition/splash/page.dart';
+import 'package:madeit/core/channel.dart';
+import 'package:madeit/core/effect.dart';
 
 void main() => runApp(const Application());
 
@@ -29,6 +33,10 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(envEffect);
+
+    dispatch(const AppStarted());
+
     return const MaterialApp(
       initialRoute: "/splash",
       onGenerateRoute: _onGenerateRoute,

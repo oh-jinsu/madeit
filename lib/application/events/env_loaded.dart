@@ -1,0 +1,3 @@
+class EnvLoaded {
+  const EnvLoaded();
+}
