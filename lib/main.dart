@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/application/effects/env.dart';
+import 'package:madeit/application/effects/provider.dart';
+import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
@@ -34,6 +36,8 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     useEffect(envEffect);
+    useEffect(providerEffect);
+    useEffect(wsEffect);
 
     dispatch(const AppStarted());
 

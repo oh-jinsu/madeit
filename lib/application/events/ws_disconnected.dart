@@ -1,0 +1,3 @@
+class WsDisconnected {
+  const WsDisconnected();
+}

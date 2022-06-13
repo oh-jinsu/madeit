@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:madeit/implementation/providers/client/response.dart';
+import 'package:madeit/implementation/providers/http_client/response.dart';
 import 'package:madeit/utilities/debug.dart';
 
 typedef _Fetcher = Future<http.Response> Function(
@@ -10,7 +10,7 @@ typedef _Fetcher = Future<http.Response> Function(
   Map<String, String>? headers,
 });
 
-class Client {
+class HttpClient {
   final String _host;
 
   File? _file;
@@ -19,7 +19,7 @@ class Client {
 
   final Map<String, String> _headers = {};
 
-  Client(String host) : _host = host;
+  HttpClient(String host) : _host = host;
 
   Future<Response> get(String endpoint) => _request("GET", endpoint);
 
@@ -31,25 +31,25 @@ class Client {
 
   Future<Response> delete(String endpoint) => _request("DELETE", endpoint);
 
-  Client header(String key, String value) {
+  HttpClient header(String key, String value) {
     _headers[key] = value;
 
     return this;
   }
 
-  Client auth(String token) {
+  HttpClient auth(String token) {
     _headers["Authorization"] = "Bearer $token";
 
     return this;
   }
 
-  Client body(Object body) {
+  HttpClient body(Object body) {
     _body = body;
 
     return this;
   }
 
-  Client file(File file) {
+  HttpClient file(File file) {
     _file = file;
 
     return this;

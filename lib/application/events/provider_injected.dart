@@ -1,0 +1,3 @@
+class ProviderInjected {
+  const ProviderInjected();
+}
