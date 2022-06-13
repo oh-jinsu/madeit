@@ -110,9 +110,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
       ),
     );
   }
