@@ -2,7 +2,7 @@ class RoomModel {
   final String id;
   final String title;
   final int participantCount;
-  final String createdAt;
+  final DateTime createdAt;
 
   const RoomModel({
     required this.id,
@@ -16,7 +16,7 @@ class RoomModel {
       id: json["id"],
       title: json["title"],
       participantCount: json["participant_count"],
-      createdAt: json["created_at"],
+      createdAt: DateTime.parse(json["created_at"]),
     );
   }
 }
