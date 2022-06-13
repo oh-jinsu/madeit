@@ -85,6 +85,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         child: BottomNavigationBar(
+          elevation: 0.0,
           backgroundColor: Colors.white,
           currentIndex: 1,
           selectedFontSize: 12.0,
