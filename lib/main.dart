@@ -9,6 +9,7 @@ import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/composition/home/page.dart';
+import 'package:madeit/composition/room_detail/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
 import 'package:madeit/core/effect.dart';
@@ -37,6 +38,10 @@ class Application extends StatelessWidget {
 
     if (settings.name == "/home") {
       return MaterialPageRoute(builder: (context) => const HomePage());
+    }
+
+    if (settings.name == "/room_detail") {
+      return MaterialPageRoute(builder: (context) => const RoomDetailPage());
     }
 
     return null;
@@ -79,6 +84,7 @@ class Application extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.light(
           primary: Colors.blueAccent[700]!,
+          secondary: Colors.blueAccent[700]!,
         ),
       ),
     );

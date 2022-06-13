@@ -19,80 +19,107 @@ class HomePage extends StatelessWidget {
             final items = data.items;
 
             return ListView(
-              padding: const EdgeInsets.all(16.0),
               children: [
                 for (int i = 0; i < items.length * 2 - 1; i++)
                   if (i % 2 == 1)
-                    const Divider(height: 32.0)
+                    const Divider(height: 0.0)
                   else
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "하루에 만 보 걷기",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const Text(
-                                "만 걸음 걸을 때마다 하루씩 젊어져요!",
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: items[i ~/ 2]
-                                          .participantCount
-                                          .toString(),
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                    const TextSpan(
-                                      text: "명이 함께하고 있어요 🔥",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed("/room_detail");
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
                           children: [
-                            const Text(
-                              "평균 성공률",
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "하루에 만 보 걷기 🚶‍♂️",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 1.0),
+                                  Text(
+                                    "만 걸음 걸을 때마다 하루씩 젊어져요!",
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3.0),
+                                  Row(
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.grey[700],
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: "조대훈",
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const TextSpan(
+                                              text: " • 참여 중 ",
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  "${items[i ~/ 2].participantCount}",
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const TextSpan(
+                                              text: "/20명",
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 4.0,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "평균 성공률",
+                                  style: TextStyle(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 4.0,
+                                ),
+                                Text(
+                                  "95%",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "95%",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
+                            const SizedBox(width: 8.0)
                           ],
                         ),
-                        const SizedBox(width: 8.0)
-                      ],
+                      ),
                     )
               ],
             );

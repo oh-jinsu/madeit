@@ -12,11 +12,11 @@ import 'package:madeit/utilities/dependency.dart';
 prefetchRoomsEffect(ProviderInjected event) async {
   final client = inject<HttpClient>();
 
-  final response = await client.get("rooms");
+  // final response = await client.get("rooms");
 
-  if (response is! SuccessResponse) {
-    return;
-  }
+  // if (response is! SuccessResponse) {
+  //   return;
+  // }
 
   // final model = ListOf.fromJson(response.body, RoomModel.fromjson);
 
