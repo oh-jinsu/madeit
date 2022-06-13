@@ -76,6 +76,11 @@ class Application extends StatelessWidget {
         Locale('ko'),
         Locale('en'),
       ],
+      theme: ThemeData(
+        colorScheme: ColorScheme.light(
+          primary: Colors.blueAccent[700]!,
+        ),
+      ),
     );
   }
 }
