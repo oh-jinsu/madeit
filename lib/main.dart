@@ -50,6 +50,8 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeChannel();
+
     useStore(listOfRoomStore);
 
     useEffect(envEffect);
