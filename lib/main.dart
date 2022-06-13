@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:codux/codux.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/composition/splash/page.dart';
 
 void main() => runApp(const Application());
 
-class Application extends Component {
+class Application extends StatelessWidget {
   const Application({Key? key}) : super(key: key);
 
   static Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
@@ -29,7 +28,7 @@ class Application extends Component {
   }
 
   @override
-  Widget render(BuildContext context) {
+  Widget build(BuildContext context) {
     return const MaterialApp(
       initialRoute: "/splash",
       onGenerateRoute: _onGenerateRoute,
