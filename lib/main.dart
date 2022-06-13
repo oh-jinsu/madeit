@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/application/effects/env.dart';
+import 'package:madeit/application/effects/firebase.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
 import 'package:madeit/application/effects/splash_waiter.dart';
@@ -55,6 +56,7 @@ class Application extends StatelessWidget {
     useStore(listOfRoomStore);
 
     useEffect(envEffect);
+    useEffect(firebaseEffect);
     useEffect(providerEffect);
     useEffect(wsEffect);
     useEffect(prefetchRoomsEffect);
