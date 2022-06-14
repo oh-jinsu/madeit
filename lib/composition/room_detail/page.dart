@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madeit/composition/common/widgets/avatar.dart';
 
 class RoomDetailPage extends StatelessWidget {
   static const paddingLeft = 20.0;
@@ -107,15 +108,7 @@ class RoomDetailPage extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor: Colors.grey[100],
-                            child: Icon(
-                              Icons.person,
-                              color: Colors.grey[400],
-                              size: 20.0,
-                            ),
-                          ),
+                          const Avatar(radius: 20.0),
                           const SizedBox(width: 16.0),
                           Expanded(
                             child: Column(
@@ -252,7 +245,9 @@ class RoomDetailPage extends StatelessWidget {
               const SizedBox(width: 8.0),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed("/room");
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),

@@ -9,6 +9,7 @@ import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/composition/home/page.dart';
+import 'package:madeit/composition/room/page.dart';
 import 'package:madeit/composition/room_detail/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
@@ -38,6 +39,10 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
 
   if (settings.name == "/room_detail") {
     return MaterialPageRoute(builder: (context) => const RoomDetailPage());
+  }
+
+  if (settings.name == "/room") {
+    return MaterialPageRoute(builder: (context) => const RoomPage());
   }
 
   return null;
