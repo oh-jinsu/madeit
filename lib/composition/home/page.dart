@@ -29,7 +29,10 @@ class HomePage extends StatelessWidget {
                         Navigator.of(context).pushNamed("/room_detail");
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 16.0,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
@@ -44,11 +47,10 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 2.0),
-                                  Text(
+                                  const Text(
                                     "만 걸음 걸을 때마다 하루씩 젊어져요!",
                                     style: TextStyle(
                                       fontSize: 14.0,
-                                      color: Colors.grey[600],
                                     ),
                                   ),
                                   const SizedBox(height: 4.0),
@@ -57,7 +59,7 @@ class HomePage extends StatelessWidget {
                                       RichText(
                                         text: TextSpan(
                                           style: TextStyle(
-                                            fontSize: 11.0,
+                                            fontSize: 12.0,
                                             color: Colors.grey[600],
                                           ),
                                           children: [
@@ -70,7 +72,7 @@ class HomePage extends StatelessWidget {
                                               ),
                                             ),
                                             const TextSpan(
-                                              text: " • 참여 인원 ",
+                                              text: " · 참여 인원 ",
                                             ),
                                             TextSpan(
                                               text:
@@ -115,7 +117,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 8.0)
+                            const SizedBox(width: 4.0)
                           ],
                         ),
                       ),
