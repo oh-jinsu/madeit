@@ -16,4 +16,4 @@ ValueStream<T?> createStore<T>(Reducer<T> reducer) {
   return subject.stream;
 }
 
-void useStore(ValueStream store) {}
+void touchStore(ValueStream store) {}

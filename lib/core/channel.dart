@@ -6,7 +6,7 @@ final _channel = PublishSubject();
 
 final List<StreamSubscription> _subscriptions = [];
 
-void listen(
+StreamSubscription listen(
   void Function(dynamic)? onData, {
   Function? onError,
   void Function()? onDone,
@@ -20,6 +20,8 @@ void listen(
   );
 
   _subscriptions.add(subscription);
+
+  return subscription;
 }
 
 void dispatch(dynamic event) => _channel.sink.add(event);

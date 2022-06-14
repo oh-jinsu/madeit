@@ -62,7 +62,7 @@ class _ApplicationState extends State<Application> {
   void initState() {
     initializeChannel();
 
-    useStore(listOfRoomStore);
+    touchStore(listOfRoomStore);
 
     useEffect(envEffect);
     useEffect(firebaseEffect);
