@@ -40,23 +40,25 @@ class HomePage extends StatelessWidget {
                                     "하루에 만 보 걷기 🚶‍♂️",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 14.0,
                                     ),
                                   ),
-                                  const SizedBox(height: 1.0),
+                                  const SizedBox(height: 2.0),
                                   Text(
                                     "만 걸음 걸을 때마다 하루씩 젊어져요!",
                                     style: TextStyle(
-                                      color: Colors.grey[700],
+                                      fontSize: 14.0,
+                                      color: Colors.grey[600],
                                     ),
                                   ),
-                                  const SizedBox(height: 3.0),
+                                  const SizedBox(height: 4.0),
                                   Row(
                                     children: [
                                       RichText(
                                         text: TextSpan(
                                           style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[700],
+                                            fontSize: 11.0,
+                                            color: Colors.grey[600],
                                           ),
                                           children: [
                                             TextSpan(
@@ -69,7 +71,7 @@ class HomePage extends StatelessWidget {
                                               ),
                                             ),
                                             const TextSpan(
-                                              text: " • 참여 중 ",
+                                              text: " • 참여 인원 ",
                                             ),
                                             TextSpan(
                                               text:
@@ -98,13 +100,11 @@ class HomePage extends StatelessWidget {
                                 const Text(
                                   "평균 성공률",
                                   style: TextStyle(
-                                    fontSize: 10.0,
+                                    fontSize: 11.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 4.0,
-                                ),
+                                const SizedBox(height: 2.0),
                                 Text(
                                   "95%",
                                   style: TextStyle(

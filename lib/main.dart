@@ -92,9 +92,9 @@ class _ApplicationState extends State<Application> {
         Locale('en'),
       ],
       theme: ThemeData(
-        colorScheme: ColorScheme.light(
-          primary: Colors.blueAccent[700]!,
-          secondary: Colors.blueAccent[700]!,
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xff00c8a2),
+          secondary: Color(0xff00c8a2),
         ),
       ),
     );
