@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madeit/composition/common/properties/text_style.dart';
 
 class MyChatBubble extends StatelessWidget {
   final String username;
@@ -24,12 +25,9 @@ class MyChatBubble extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             RichText(
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey[600],
-                ),
-                children: const [
+              text: const TextSpan(
+                style: CaptionTextStyle(),
+                children: [
                   TextSpan(
                     text: "오후 02:30",
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:madeit/application/models/list_of.dart';
 import 'package:madeit/application/models/room.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
+import 'package:madeit/composition/common/properties/text_style.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,27 +42,19 @@ class HomePage extends StatelessWidget {
                                 children: [
                                   const Text(
                                     "하루에 만 보 걷기 🚶‍♂️",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14.0,
-                                    ),
+                                    style: TitleTextStyle(),
                                   ),
                                   const SizedBox(height: 2.0),
                                   const Text(
                                     "만 걸음 걸을 때마다 하루씩 젊어져요!",
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                    ),
+                                    style: BodyTextStyle(),
                                   ),
                                   const SizedBox(height: 4.0),
                                   Row(
                                     children: [
                                       RichText(
                                         text: TextSpan(
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.grey[600],
-                                          ),
+                                          style: const CaptionTextStyle(),
                                           children: [
                                             TextSpan(
                                               text: "조대훈",
@@ -141,17 +134,19 @@ class HomePage extends StatelessWidget {
         child: BottomNavigationBar(
           elevation: 0.0,
           backgroundColor: Colors.white,
-          currentIndex: 1,
+          currentIndex: 0,
           selectedFontSize: 12.0,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "검색"),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: "루틴"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "정보"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.explore_outlined), label: "탐색"),
+            BottomNavigationBarItem(icon: Icon(Icons.checklist), label: "내 루틴"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline), label: "정보"),
           ],
         ),
       ),
       appBar: AppBar(
-        title: const Text("메이드잇"),
+        title: const Text("탐색"),
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         elevation: 0.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 
 class RoomDetailPage extends StatelessWidget {
@@ -24,12 +25,7 @@ class RoomDetailPage extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
-                    height: 1.3,
-                  ),
+                  style: const HeadlineTextStyle(),
                   children: [
                     const TextSpan(
                       text: "평균 성공률 ",
@@ -64,10 +60,7 @@ class RoomDetailPage extends StatelessWidget {
               const SizedBox(height: 12.0),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey[600],
-                  ),
+                  style: const CaptionTextStyle(),
                   children: [
                     TextSpan(
                       text: "조대훈",
@@ -84,17 +77,12 @@ class RoomDetailPage extends StatelessWidget {
               const SizedBox(height: 16.0),
               const Text(
                 "만 걸음 걸을 때마다 하루씩 젊어져요!\n\n하버드대학 스포츠과학센터의 실험결과에 따르면 자전거타기 5.7%, 달리기 6.0%의 체지방 감소율에 비해서 걷기는 13.4%로 다른 운동과 2배 이상의 체지방 감소율을 나타냈습니다. 100만 보를 걸으면 5만 Kcal가 소모됩니다. 이는 마라톤 풀코스를 17번 뛰는 것과 같은 효과가 있습니다.\n\n만보기 사진을 매일 오후 9시부터 9시 10분까지 인증하시면 됩니다. 초보자도 환영해요!",
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                style: BodyTextStyle(),
               ),
               const SizedBox(height: 16.0),
               const Text(
                 "✅ 인증 로그",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: HeaderTextStyle(),
               ),
               ListView(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -116,11 +104,7 @@ class RoomDetailPage extends StatelessWidget {
                               children: [
                                 RichText(
                                   text: TextSpan(
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.grey[600],
-                                      height: 1.2,
-                                    ),
+                                    style: const CaptionTextStyle(),
                                     children: [
                                       const TextSpan(
                                         text: "익명 32",
@@ -163,9 +147,7 @@ class RoomDetailPage extends StatelessWidget {
                                 const SizedBox(height: 8.0),
                                 const Text(
                                   "야호! 오늘도 만 걸음 걸었다! 너무 뿌듯해!",
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                  ),
+                                  style: BodyTextStyle(),
                                 ),
                                 const SizedBox(height: 12.0),
                                 ClipRRect(
@@ -223,8 +205,6 @@ class RoomDetailPage extends StatelessWidget {
                     side: BorderSide(color: Colors.grey[200]!),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  padding: const EdgeInsets.all(0.0),
-                  elevation: 0.0,
                   fixedSize: const Size(
                     bottomContainerHeight,
                     bottomContainerHeight,
@@ -232,9 +212,6 @@ class RoomDetailPage extends StatelessWidget {
                   minimumSize: const Size(
                     bottomContainerHeight,
                     bottomContainerHeight,
-                  ),
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 child: Icon(
@@ -249,15 +226,7 @@ class RoomDetailPage extends StatelessWidget {
                     Navigator.of(context).pushReplacementNamed("/room");
                   },
                   style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    padding: const EdgeInsets.all(0.0),
-                    elevation: 0.0,
                     minimumSize: const Size.fromHeight(bottomContainerHeight),
-                    textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                   child: const Text("참여하기"),
                 ),

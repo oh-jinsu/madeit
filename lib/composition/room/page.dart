@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/room/widget/chat_bubble.dart';
 import 'package:madeit/composition/room/widget/my_chat_bubble.dart';
 
@@ -51,7 +52,7 @@ class _RoomPageState extends State<RoomPage> {
               ),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey[600]),
+                  style: const CaptionTextStyle(),
                   children: [
                     const TextSpan(
                       text: "평균 성공률 ",
@@ -194,13 +195,11 @@ class _RoomPageState extends State<RoomPage> {
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 visualDensity: VisualDensity.compact,
-                                padding: const EdgeInsets.all(0.0),
                                 fixedSize: const Size(32.0, 32.0),
                                 minimumSize: const Size(32.0, 32.0),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
-                                elevation: 0.0,
                               ),
                               child: const Icon(
                                 Icons.arrow_upward,

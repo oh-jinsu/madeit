@@ -100,6 +100,28 @@ class _ApplicationState extends State<Application> {
         colorScheme: const ColorScheme.light(
           primary: Color(0xff00c8a2),
           secondary: Color(0xff00c8a2),
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+        ),
+        appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors.grey[700],
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            padding: const EdgeInsets.all(0.0),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ).merge(
+            ButtonStyle(
+              elevation: MaterialStateProperty.resolveWith((states) => 0.0),
+            ),
+          ),
         ),
       ),
     );
