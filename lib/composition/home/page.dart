@@ -67,7 +67,6 @@ class HomePage extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .primary,
-                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             const TextSpan(
