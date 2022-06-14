@@ -23,39 +23,43 @@ BuildContext get requireContext => _globalKey.currentContext!;
 
 NavigatorState get currentState => _globalKey.currentState!;
 
-class Application extends StatelessWidget {
-  const Application({Key? key}) : super(key: key);
-
-  static Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
-    if (settings.name == "/splash") {
-      return PageRouteBuilder(
-        settings: settings,
-        transitionDuration: Duration.zero,
-        pageBuilder: (context, animation, secondAnimation) =>
-            const SplashPage(),
-      );
-    }
-
-    if (settings.name == "/home") {
-      return MaterialPageRoute(builder: (context) => const HomePage());
-    }
-
-    if (settings.name == "/room_detail") {
-      return MaterialPageRoute(builder: (context) => const RoomDetailPage());
-    }
-
-    return null;
-  }
-
-  static Widget _builder(BuildContext context, Widget? child) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: child!,
+Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
+  if (settings.name == "/splash") {
+    return PageRouteBuilder(
+      settings: settings,
+      transitionDuration: Duration.zero,
+      pageBuilder: (context, animation, secondAnimation) => const SplashPage(),
     );
   }
 
+  if (settings.name == "/home") {
+    return MaterialPageRoute(builder: (context) => const HomePage());
+  }
+
+  if (settings.name == "/room_detail") {
+    return MaterialPageRoute(builder: (context) => const RoomDetailPage());
+  }
+
+  return null;
+}
+
+Widget _builder(BuildContext context, Widget? child) {
+  return MediaQuery(
+    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+    child: child!,
+  );
+}
+
+class Application extends StatefulWidget {
+  const Application({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
+  State<Application> createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
+  @override
+  void initState() {
     initializeChannel();
 
     useStore(listOfRoomStore);
@@ -69,6 +73,11 @@ class Application extends StatelessWidget {
 
     dispatch(const AppStarted());
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _globalKey,
       initialRoute: "/splash",
@@ -76,6 +85,7 @@ class Application extends StatelessWidget {
       builder: _builder,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('ko'),
