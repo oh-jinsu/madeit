@@ -45,23 +45,34 @@ class ProfilePage extends StatelessWidget {
                 color: Colors.white,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  ProfileRecordItem(
-                    icon: Icons.verified_outlined,
-                    label: "루틴 인증",
-                    content: "101",
+                  Spacer(),
+                  Expanded(
+                    flex: 9,
+                    child: ProfileRecordItem(
+                      icon: Icons.verified_outlined,
+                      label: "루틴 인증",
+                      content: "101",
+                    ),
                   ),
-                  ProfileRecordItem(
-                    icon: Icons.favorite_outline,
-                    label: "좋아요",
-                    content: "324",
+                  Expanded(
+                    flex: 9,
+                    child: ProfileRecordItem(
+                      icon: Icons.favorite_outline,
+                      label: "좋아요",
+                      content: "324",
+                    ),
                   ),
-                  ProfileRecordItem(
-                    icon: Icons.waving_hand_outlined,
-                    label: "힘내요",
-                    content: "75",
+                  Expanded(
+                    flex: 9,
+                    child: ProfileRecordItem(
+                      icon: Icons.waving_hand_outlined,
+                      label: "힘내요",
+                      content: "75",
+                    ),
                   ),
+                  Spacer(),
                 ],
               ),
             ),
