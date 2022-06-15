@@ -119,45 +119,47 @@ class _RoomPageState extends State<RoomPage> {
               onTap: () {
                 Navigator.of(context).pushNamed("/room/notification");
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.grey[200]!,
+              child: Ink(
+                color: Colors.white,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey[200]!,
+                      ),
                     ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16.0,
-                    right: 8.0,
-                    bottom: 8.0,
-                    top: 8.0,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.campaign_outlined,
-                        size: 20.0,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(width: 8.0),
-                      const Expanded(
-                        child: Text(
-                          "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~ 안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~ 안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: CaptionTextStyle(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16.0,
+                      right: 8.0,
+                      bottom: 8.0,
+                      top: 8.0,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.campaign_outlined,
+                          size: 20.0,
+                          color: Colors.grey[600],
                         ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey[400],
-                        size: 20.0,
-                      )
-                    ],
+                        const SizedBox(width: 8.0),
+                        const Expanded(
+                          child: Text(
+                            "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~ 안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~ 안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: CaptionTextStyle(),
+                          ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Icon(
+                          Icons.chevron_right,
+                          color: Colors.grey[400],
+                          size: 20.0,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

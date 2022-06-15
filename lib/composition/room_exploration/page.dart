@@ -30,90 +30,92 @@ class RoomExplorationPage extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).pushNamed("/room/preview");
                       },
-                      child: Container(
+                      child: Ink(
                         color: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 16.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 16.0,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "하루에 만 보 걷기 🚶‍♂️",
+                                      style: TitleTextStyle(),
+                                    ),
+                                    const SizedBox(height: 2.0),
+                                    const Text(
+                                      "만 걸음 걸을 때마다 하루씩 젊어져요!",
+                                      style: BodyTextStyle(),
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Row(
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                            style: const CaptionTextStyle(),
+                                            children: [
+                                              TextSpan(
+                                                text: "조대훈",
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                              const TextSpan(
+                                                text: " · 참여 인원 ",
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    "${items[i ~/ 2].participantCount}",
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const TextSpan(
+                                                text: "/20명",
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    "하루에 만 보 걷기 🚶‍♂️",
-                                    style: TitleTextStyle(),
+                                    "평균 성공률",
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   const SizedBox(height: 2.0),
-                                  const Text(
-                                    "만 걸음 걸을 때마다 하루씩 젊어져요!",
-                                    style: BodyTextStyle(),
-                                  ),
-                                  const SizedBox(height: 4.0),
-                                  Row(
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          style: const CaptionTextStyle(),
-                                          children: [
-                                            TextSpan(
-                                              text: "조대훈",
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                              ),
-                                            ),
-                                            const TextSpan(
-                                              text: " · 참여 인원 ",
-                                            ),
-                                            TextSpan(
-                                              text:
-                                                  "${items[i ~/ 2].participantCount}",
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const TextSpan(
-                                              text: "/20명",
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    "95%",
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "평균 성공률",
-                                  style: TextStyle(
-                                    fontSize: 11.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 2.0),
-                                Text(
-                                  "95%",
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 4.0)
-                          ],
+                              const SizedBox(width: 4.0)
+                            ],
+                          ),
                         ),
                       ),
                     )

@@ -13,7 +13,7 @@ class RoomPreviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: Ink(
         color: Colors.white,
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(
@@ -111,13 +111,12 @@ class RoomPreviewPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.white,
+      bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(
           left: paddingLeft,
           right: paddingRight,
-          bottom: 8.0,
-          top: 8.0,
+          bottom: 4.0,
+          top: 4.0,
         ),
         child: SafeArea(
           child: Row(
