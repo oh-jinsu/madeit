@@ -82,58 +82,68 @@ class RoomPhotolog extends StatelessWidget {
               onTap: () {},
               child: Ink(
                 color: Colors.white,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                        top: 8.0,
+                      ),
+                      child: RichText(
+                        text: const TextSpan(
+                          style: CaptionTextStyle(),
+                          children: [
+                            TextSpan(
+                              text: "1일 전",
+                            ),
+                            TextSpan(
+                              text: " · 인증됨 ✅",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        left: 16.0,
+                        top: 4.0,
+                        right: 16.0,
+                      ),
+                      child: Text(
+                        "야호! 오늘도 만 걸음 걸었다!",
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: BodyTextStyle(),
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    SizedBox(
+                      height: 80.0,
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                RichText(
-                                  text: const TextSpan(
-                                    style: CaptionTextStyle(),
-                                    children: [
-                                      TextSpan(
-                                        text: "1일 전",
-                                      ),
-                                      TextSpan(
-                                        text: " · 인증됨 ✅",
-                                      ),
-                                    ],
+                          for (int i = 0; i < 1; i++)
+                            if (i % 2 == 1)
+                              const SizedBox(width: 4.0)
+                            else
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(4.0),
+                                child: const Image(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    "https://picsum.photos/300/300",
                                   ),
                                 ),
-                                const SizedBox(height: 8.0),
-                                const Text(
-                                  "야호! 오늘도 만 걸음 걸었다! 너무 뿌듯해! 수고했어 사랑 고생했지 나의 사랑.. 이 부분이 뭔가 과거의 나에게, 지금의 나에게 건네주는 것",
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: BodyTextStyle(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 12.0),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(4.0),
-                            child: const Image(
-                              width: 80.0,
-                              height: 80.0,
-                              fit: BoxFit.cover,
-                              image:
-                                  NetworkImage("https://picsum.photos/500/500"),
-                            ),
-                          ),
+                              ),
                         ],
                       ),
-                      const SizedBox(height: 4.0),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 16.0),
+                  ],
                 ),
               ),
             ),
