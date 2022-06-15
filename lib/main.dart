@@ -124,12 +124,9 @@ class _ApplicationState extends State<Application> {
           shape: Border(
             bottom: BorderSide(color: Colors.grey[200]!),
           ),
-          iconTheme: IconThemeData(
-            color: Colors.grey[700],
-          ),
           titleTextStyle: const TextStyle(
             color: Colors.black,
-            fontSize: 20.0,
+            fontSize: 18.0,
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
