@@ -22,7 +22,20 @@ class RoomPage extends StatefulWidget {
 }
 
 class _RoomPageState extends State<RoomPage> {
+  bool isEditing = false;
+
   final focusNode = FocusNode();
+
+  @override
+  void initState() {
+    focusNode.addListener(() {
+      setState(() {
+        isEditing = focusNode.hasFocus;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -279,37 +292,39 @@ class _RoomPageState extends State<RoomPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 4.0),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xffc8009e),
-                        visualDensity: VisualDensity.compact,
-                        fixedSize: const Size(64.0, 36.0),
-                        minimumSize: const Size(64.0, 36.0),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+                    if (!isEditing) ...[
+                      const SizedBox(width: 4.0),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xffc8009e),
+                          visualDensity: VisualDensity.compact,
+                          fixedSize: const Size(64.0, 36.0),
+                          minimumSize: const Size(64.0, 36.0),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.add_task,
+                              size: 18.0,
+                            ),
+                            SizedBox(width: 2.0),
+                            Text(
+                              "인증",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            SizedBox(width: 2.0),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.add_task,
-                            size: 18.0,
-                          ),
-                          SizedBox(width: 2.0),
-                          Text(
-                            "인증",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          SizedBox(width: 2.0),
-                        ],
-                      ),
-                    ),
+                    ],
                     const SizedBox(width: 8.0),
                   ],
                 ),
