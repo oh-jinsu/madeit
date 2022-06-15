@@ -138,6 +138,7 @@ class _ApplicationState extends State<Application> {
           secondary: Color(0xff00c8a2),
           onPrimary: Colors.white,
           onSecondary: Colors.white,
+          error: Color(0xffc80025),
         ),
         appBarTheme: AppBarTheme(
           foregroundColor: Colors.black,
