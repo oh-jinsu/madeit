@@ -9,9 +9,10 @@ class CaptionTextStyle extends TextStyle {
 }
 
 class BodyTextStyle extends TextStyle {
-  const BodyTextStyle()
-      : super(
-          color: Colors.black,
+  const BodyTextStyle({
+    Color color = Colors.black,
+  }) : super(
+          color: color,
           fontSize: 14.0,
         );
 }
