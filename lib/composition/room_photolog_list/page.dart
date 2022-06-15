@@ -9,7 +9,7 @@ class RoomPhotologListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "인증 로그 ✅",
+          "멤버별 인증 로그 ✅",
         ),
         titleSpacing: 0.0,
       ),

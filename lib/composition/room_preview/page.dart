@@ -100,7 +100,7 @@ class RoomPreviewPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: paddingLeft),
                 child: Text(
-                  "인증 로그 ✅",
+                  "최신 인증 로그 ✅",
                   style: HeaderTextStyle(),
                 ),
               ),
