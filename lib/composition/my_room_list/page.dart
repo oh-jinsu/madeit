@@ -22,74 +22,76 @@ class MyRoomListPage extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pushNamed("/room");
                 },
-                child: Container(
+                child: Ink(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: const [
-                          Expanded(
-                            child: Text(
-                              "하루에 만 보 걷기 🚶‍♂️",
-                              style: TitleTextStyle(),
-                            ),
-                          ),
-                          Text(
-                            "오후 2:30",
-                            style: CaptionTextStyle(),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 2.0),
-                      RichText(
-                        text: TextSpan(
-                          style: const CaptionTextStyle(),
-                          children: [
-                            TextSpan(
-                              text: "16명",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 16.0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: const [
+                            Expanded(
+                              child: Text(
+                                "하루에 만 보 걷기 🚶‍♂️",
+                                style: TitleTextStyle(),
                               ),
                             ),
-                            const TextSpan(
-                              text: " 평균 성공률 ",
-                            ),
-                            TextSpan(
-                              text: "86%",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const TextSpan(
-                              text: " 나의 성공률 ",
-                            ),
-                            TextSpan(
-                              text: "93%",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            Text(
+                              "오후 2:30",
+                              style: CaptionTextStyle(),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        "오진수님 열심히 좀 해보세요 님이 제일 말 안 듣고 문제에요",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: BodyTextStyle(
-                          color: Colors.grey[600]!,
+                        const SizedBox(height: 2.0),
+                        RichText(
+                          text: TextSpan(
+                            style: const CaptionTextStyle(),
+                            children: [
+                              TextSpan(
+                                text: "16명",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const TextSpan(
+                                text: " 평균 성공률 ",
+                              ),
+                              TextSpan(
+                                text: "86%",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const TextSpan(
+                                text: " 나의 성공률 ",
+                              ),
+                              TextSpan(
+                                text: "93%",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8.0),
+                        Text(
+                          "오진수님 열심히 좀 해보세요 님이 제일 말 안 듣고 문제에요",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: BodyTextStyle(
+                            color: Colors.grey[600]!,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )
