@@ -67,8 +67,15 @@ class _RoomPageState extends State<RoomPage> {
                 text: TextSpan(
                   style: const CaptionTextStyle(),
                   children: [
+                    TextSpan(
+                      text: "16명",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const TextSpan(
-                      text: "평균 성공률 ",
+                      text: " 평균 성공률 ",
                     ),
                     TextSpan(
                       text: "86%",
