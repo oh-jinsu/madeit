@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:madeit/application/models/list_of.dart';
 import 'package:madeit/application/models/room.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
+import 'package:madeit/composition/common/constants/strings.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
+import 'package:madeit/composition/common/widgets/navigation_bar.dart';
 
 class RoomExplorationPage extends StatelessWidget {
   const RoomExplorationPage({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class RoomExplorationPage extends StatelessWidget {
 
             return ListView(
               children: [
-                for (int i = 0; i < items.length * 2 - 1; i++)
+                for (int i = 0; i < items.length * 2; i++)
                   if (i % 2 == 1)
                     const Divider(height: 0.0)
                   else
@@ -31,7 +33,7 @@ class RoomExplorationPage extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
+                          horizontal: 16.0,
                           vertical: 16.0,
                         ),
                         child: Row(
@@ -122,38 +124,9 @@ class RoomExplorationPage extends StatelessWidget {
           return const SizedBox();
         },
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Colors.grey[200]!,
-              width: 0.5,
-            ),
-          ),
-        ),
-        child: BottomNavigationBar(
-          elevation: 0.0,
-          backgroundColor: Colors.white,
-          currentIndex: 0,
-          selectedFontSize: 12.0,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.explore_outlined),
-              label: "탐색",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.checklist),
-              label: "내 루틴",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: "정보",
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const AppNavigationBar(currentIndex: 0),
       appBar: AppBar(
-        title: const Text("탐색"),
+        title: const Text(Strings.exploration),
       ),
     );
   }

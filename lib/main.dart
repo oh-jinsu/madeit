@@ -8,6 +8,7 @@ import 'package:madeit/application/effects/splash_waiter.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
+import 'package:madeit/composition/my_room_list/page.dart';
 import 'package:madeit/composition/room/page.dart';
 import 'package:madeit/composition/room_exploration/page.dart';
 import 'package:madeit/composition/room_notification_list/page.dart';
@@ -36,7 +37,12 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == "/home") {
-    return MaterialPageRoute(builder: (context) => const RoomExplorationPage());
+    return PageRouteBuilder(
+      settings: settings,
+      transitionDuration: Duration.zero,
+      pageBuilder: (context, animation, secondAnimation) =>
+          const RoomExplorationPage(),
+    );
   }
 
   if (settings.name == "/room/preview") {
@@ -55,6 +61,15 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   if (settings.name == "/room/notification") {
     return MaterialPageRoute(
         builder: (context) => const RoomNotificationListPage());
+  }
+
+  if (settings.name == "/room/mine") {
+    return PageRouteBuilder(
+      settings: settings,
+      transitionDuration: Duration.zero,
+      pageBuilder: (context, animation, secondAnimation) =>
+          const MyRoomListPage(),
+    );
   }
 
   return null;
@@ -124,10 +139,8 @@ class _ApplicationState extends State<Application> {
           shape: Border(
             bottom: BorderSide(color: Colors.grey[200]!),
           ),
-          titleTextStyle: const TextStyle(
-            color: Colors.black,
-            fontSize: 18.0,
-          ),
+          titleTextStyle:
+              const TextStyle(color: Colors.black, fontSize: 18.0, height: 1.3),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

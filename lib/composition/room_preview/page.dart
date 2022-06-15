@@ -3,8 +3,8 @@ import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/room_photolog.dart';
 
 class RoomPreviewPage extends StatelessWidget {
-  static const paddingLeft = 20.0;
-  static const paddingRight = 20.0;
+  static const paddingLeft = 16.0;
+  static const paddingRight = 16.0;
 
   static const bottomContainerHeight = 44.0;
 
