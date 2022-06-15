@@ -52,7 +52,7 @@ class ProfilePage extends StatelessWidget {
                     flex: 9,
                     child: ProfileRecordItem(
                       icon: Icons.verified_outlined,
-                      label: "루틴 인증",
+                      label: "잘했어요",
                       content: "101",
                     ),
                   ),
