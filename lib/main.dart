@@ -11,6 +11,7 @@ import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/composition/home/page.dart';
 import 'package:madeit/composition/room/page.dart';
 import 'package:madeit/composition/room_detail/page.dart';
+import 'package:madeit/composition/room_participant_log/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
 import 'package:madeit/core/effect.dart';
@@ -43,6 +44,10 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
 
   if (settings.name == "/room") {
     return MaterialPageRoute(builder: (context) => const RoomPage());
+  }
+
+  if (settings.name == "/room_participant_log") {
+    return MaterialPageRoute(builder: (context) => const RoomParticipantLog());
   }
 
   return null;
@@ -103,9 +108,21 @@ class _ApplicationState extends State<Application> {
           onPrimary: Colors.white,
           onSecondary: Colors.white,
         ),
+        scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          centerTitle: false,
+          shape: Border(
+            bottom: BorderSide(color: Colors.grey[200]!),
+          ),
           iconTheme: IconThemeData(
             color: Colors.grey[700],
+          ),
+          titleTextStyle: const TextStyle(
+            color: Colors.black,
+            fontSize: 20.0,
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -122,6 +139,11 @@ class _ApplicationState extends State<Application> {
               elevation: MaterialStateProperty.resolveWith((states) => 0.0),
             ),
           ),
+        ),
+        dividerTheme: DividerThemeData(
+          color: Colors.grey[200],
+          space: 1.0,
+          thickness: 1.0,
         ),
       ),
     );

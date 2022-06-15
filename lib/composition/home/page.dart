@@ -138,28 +138,22 @@ class HomePage extends StatelessWidget {
           selectedFontSize: 12.0,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.explore_outlined), label: "탐색"),
-            BottomNavigationBarItem(icon: Icon(Icons.checklist), label: "내 루틴"),
+              icon: Icon(Icons.explore_outlined),
+              label: "탐색",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline), label: "정보"),
+              icon: Icon(Icons.checklist),
+              label: "내 루틴",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: "정보",
+            ),
           ],
         ),
       ),
       appBar: AppBar(
         title: const Text("탐색"),
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.grey[200]!,
-                width: 0.5,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
-import 'package:madeit/composition/common/widgets/avatar.dart';
 
 class CountinuosChatBubble extends StatelessWidget {
   final bool isMine;
@@ -42,6 +41,7 @@ class CountinuosChatBubble extends StatelessWidget {
                 color: isMine
                     ? Theme.of(context).colorScheme.primary
                     : Colors.white,
+                border: isMine ? null : Border.all(color: Colors.grey[200]!),
                 borderRadius: const BorderRadius.all(Radius.circular(16.0)),
               ),
               constraints: BoxConstraints(

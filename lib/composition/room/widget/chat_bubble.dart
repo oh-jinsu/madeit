@@ -77,6 +77,7 @@ class ChatBubble extends StatelessWidget {
                 color: isMine
                     ? Theme.of(context).colorScheme.primary
                     : Colors.white,
+                border: isMine ? null : Border.all(color: Colors.grey[200]!),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(isMine ? 16.0 : 0.0),
                   topRight: Radius.circular(isMine ? 0.0 : 16.0),

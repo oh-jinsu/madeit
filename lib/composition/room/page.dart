@@ -86,9 +86,11 @@ class _RoomPageState extends State<RoomPage> {
           elevation: 0.0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed("/room_participant_log");
+              },
               iconSize: 24.0,
-              icon: const Icon(Icons.menu),
+              icon: const Icon(Icons.people_alt_outlined),
             )
           ],
         ),
@@ -97,9 +99,6 @@ class _RoomPageState extends State<RoomPage> {
             Container(
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(
-                    color: Colors.grey[200]!,
-                  ),
                   bottom: BorderSide(
                     color: Colors.grey[200]!,
                   ),

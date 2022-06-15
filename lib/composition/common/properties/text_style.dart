@@ -27,9 +27,10 @@ class TitleTextStyle extends TextStyle {
 }
 
 class HeaderTextStyle extends TextStyle {
-  const HeaderTextStyle()
-      : super(
-          color: Colors.black,
+  const HeaderTextStyle({
+    Color color = Colors.black,
+  }) : super(
+          color: color,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
         );
