@@ -87,6 +87,7 @@ class _RoomPageState extends State<RoomPage> {
           actions: [
             IconButton(
               onPressed: () {},
+              iconSize: 24.0,
               icon: const Icon(Icons.menu),
             )
           ],
@@ -96,9 +97,52 @@ class _RoomPageState extends State<RoomPage> {
             Container(
               decoration: BoxDecoration(
                 border: Border(
+                  top: BorderSide(
+                    color: Colors.grey[200]!,
+                  ),
                   bottom: BorderSide(
                     color: Colors.grey[200]!,
                   ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 16.0,
+                  right: 8.0,
+                  bottom: 4.0,
+                  top: 4.0,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.campaign_outlined,
+                      size: 20.0,
+                      color: Colors.grey[600],
+                    ),
+                    const SizedBox(width: 8.0),
+                    const Expanded(
+                      child: Text(
+                        "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: CaptionTextStyle(),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Container(
+                        width: 32.0,
+                        height: 32.0,
+                        color: Colors.transparent,
+                        child: Icon(
+                          Icons.chevron_right,
+                          color: Colors.grey[600],
+                          size: 20.0,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -177,7 +221,7 @@ class _RoomPageState extends State<RoomPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
-                          Icons.add,
+                          Icons.add_a_photo,
                           color: Colors.grey[600],
                         ),
                       ),
@@ -185,6 +229,7 @@ class _RoomPageState extends State<RoomPage> {
                     const SizedBox(width: 4.0),
                     Expanded(
                       child: Container(
+                        padding: const EdgeInsets.all(2.0),
                         decoration: BoxDecoration(
                           color: Colors.grey[50],
                           borderRadius: BorderRadius.circular(20.0),
@@ -197,7 +242,8 @@ class _RoomPageState extends State<RoomPage> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 12.0, top: 8.0, bottom: 8.0),
+                                  left: 12.0,
+                                ),
                                 child: TextField(
                                   focusNode: focusNode,
                                   keyboardType: TextInputType.multiline,
@@ -221,6 +267,7 @@ class _RoomPageState extends State<RoomPage> {
                                 visualDensity: VisualDensity.compact,
                                 fixedSize: const Size(32.0, 32.0),
                                 minimumSize: const Size(32.0, 32.0),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
@@ -233,7 +280,38 @@ class _RoomPageState extends State<RoomPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 12.0),
+                    const SizedBox(width: 4.0),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xffc8009e),
+                        visualDensity: VisualDensity.compact,
+                        fixedSize: const Size(64.0, 36.0),
+                        minimumSize: const Size(64.0, 36.0),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.add_task,
+                            size: 18.0,
+                          ),
+                          SizedBox(width: 2.0),
+                          Text(
+                            "인증",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          SizedBox(width: 2.0),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
                   ],
                 ),
               ),
