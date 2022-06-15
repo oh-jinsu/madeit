@@ -139,7 +139,6 @@ class _ApplicationState extends State<Application> {
           onPrimary: Colors.white,
           onSecondary: Colors.white,
         ),
-        scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
@@ -172,6 +171,7 @@ class _ApplicationState extends State<Application> {
           thickness: 1.0,
         ),
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

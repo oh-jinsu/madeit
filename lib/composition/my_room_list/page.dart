@@ -22,7 +22,8 @@ class MyRoomListPage extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pushNamed("/room");
                 },
-                child: Padding(
+                child: Container(
+                  color: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,
                     vertical: 16.0,

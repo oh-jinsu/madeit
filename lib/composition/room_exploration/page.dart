@@ -12,7 +12,6 @@ class RoomExplorationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: StreamBuilder(
         stream: listOfRoomStore,
         builder: (context, snapshot) {
@@ -31,7 +30,8 @@ class RoomExplorationPage extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).pushNamed("/room/preview");
                       },
-                      child: Padding(
+                      child: Container(
+                        color: Colors.white,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
                           vertical: 16.0,

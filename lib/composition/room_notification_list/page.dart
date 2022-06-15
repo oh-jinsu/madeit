@@ -21,6 +21,7 @@ class RoomNotificationListPage extends StatelessWidget {
                 horizontal: 16.0,
               ),
               decoration: BoxDecoration(
+                color: Colors.white,
                 border: Border(
                   bottom: BorderSide(color: Colors.grey[200]!),
                 ),

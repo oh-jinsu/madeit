@@ -51,7 +51,6 @@ class _RoomPageState extends State<RoomPage> {
         focusNode.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,6 +121,7 @@ class _RoomPageState extends State<RoomPage> {
               },
               child: Container(
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   border: Border(
                     bottom: BorderSide(
                       color: Colors.grey[200]!,
@@ -163,73 +163,70 @@ class _RoomPageState extends State<RoomPage> {
               ),
             ),
             Expanded(
-              child: Container(
-                color: Colors.grey[50],
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: RoomPage.paddingHorizontal,
-                    vertical: 16.0,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: RoomPage.paddingHorizontal,
+                  vertical: 16.0,
+                ),
+                reverse: true,
+                children: [
+                  CountinuosChatBubble(
+                    isMine: true,
+                    username: "오진수",
+                    message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
+                    dateTime: DateTime.now(),
+                    maxwidth: RoomPage.getMaxChatBubbleWidth(context),
                   ),
-                  reverse: true,
-                  children: [
+                  ChatBubble(
+                    isMine: true,
+                    username: "오진수",
+                    message: "안녕하세요 신참입니다",
+                    dateTime: DateTime.now(),
+                    maxwidth: RoomPage.getMaxChatBubbleWidth(context),
+                  ),
+                  const SizedBox(height: 20.0),
+                  for (int i = 0; i < 10 * 2 - 1; i++) ...[
                     CountinuosChatBubble(
-                      isMine: true,
-                      username: "오진수",
+                      isMine: false,
+                      username: "조대훈",
                       message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
                       dateTime: DateTime.now(),
                       maxwidth: RoomPage.getMaxChatBubbleWidth(context),
                     ),
                     ChatBubble(
-                      isMine: true,
-                      username: "오진수",
-                      message: "안녕하세요 신참입니다",
+                      isMine: false,
+                      username: "조대훈",
+                      message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
                       dateTime: DateTime.now(),
                       maxwidth: RoomPage.getMaxChatBubbleWidth(context),
                     ),
-                    const SizedBox(height: 20.0),
-                    for (int i = 0; i < 10 * 2 - 1; i++) ...[
-                      CountinuosChatBubble(
-                        isMine: false,
-                        username: "조대훈",
-                        message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                        dateTime: DateTime.now(),
-                        maxwidth: RoomPage.getMaxChatBubbleWidth(context),
-                      ),
-                      ChatBubble(
-                        isMine: false,
-                        username: "조대훈",
-                        message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                        dateTime: DateTime.now(),
-                        maxwidth: RoomPage.getMaxChatBubbleWidth(context),
-                      ),
-                      const SizedBox(height: 20.0)
-                    ],
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          "2021년 3월 21일",
-                          style: CaptionTextStyle(),
-                        ),
-                      ],
-                    ),
+                    const SizedBox(height: 20.0)
                   ],
-                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        "2021년 3월 21일",
+                        style: CaptionTextStyle(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            SafeArea(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    top: BorderSide(
-                      color: Colors.grey[200]!,
-                    ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 4.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey[200]!,
                   ),
                 ),
+              ),
+              child: SafeArea(
                 child: Row(
                   children: [
                     const SizedBox(width: 8.0),

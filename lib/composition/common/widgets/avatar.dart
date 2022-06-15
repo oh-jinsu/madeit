@@ -12,11 +12,15 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: Colors.grey[100],
-      child: Icon(
-        Icons.person,
-        color: Colors.grey[400],
-        size: radius,
+      backgroundColor: Colors.grey[200],
+      child: CircleAvatar(
+        radius: radius - 1.0,
+        backgroundColor: Colors.white,
+        child: Icon(
+          Icons.person,
+          color: Colors.grey[300],
+          size: radius,
+        ),
       ),
     );
   }
