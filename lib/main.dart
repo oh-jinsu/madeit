@@ -8,10 +8,11 @@ import 'package:madeit/application/effects/splash_waiter.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
-import 'package:madeit/composition/home/page.dart';
 import 'package:madeit/composition/room/page.dart';
-import 'package:madeit/composition/room_detail/page.dart';
-import 'package:madeit/composition/room_participant_log/page.dart';
+import 'package:madeit/composition/room_exploration/page.dart';
+import 'package:madeit/composition/room_notification_list/page.dart';
+import 'package:madeit/composition/room_photolog_list/page.dart';
+import 'package:madeit/composition/room_preview/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
 import 'package:madeit/core/effect.dart';
@@ -35,19 +36,25 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == "/home") {
-    return MaterialPageRoute(builder: (context) => const HomePage());
+    return MaterialPageRoute(builder: (context) => const RoomExplorationPage());
   }
 
-  if (settings.name == "/room_detail") {
-    return MaterialPageRoute(builder: (context) => const RoomDetailPage());
+  if (settings.name == "/room/preview") {
+    return MaterialPageRoute(builder: (context) => const RoomPreviewPage());
   }
 
   if (settings.name == "/room") {
     return MaterialPageRoute(builder: (context) => const RoomPage());
   }
 
-  if (settings.name == "/room_participant_log") {
-    return MaterialPageRoute(builder: (context) => const RoomParticipantLog());
+  if (settings.name == "/room/photolog") {
+    return MaterialPageRoute(
+        builder: (context) => const RoomPhotologListPage());
+  }
+
+  if (settings.name == "/room/notification") {
+    return MaterialPageRoute(
+        builder: (context) => const RoomNotificationListPage());
   }
 
   return null;

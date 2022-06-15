@@ -4,8 +4,8 @@ import 'package:madeit/application/models/room.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class RoomExplorationPage extends StatelessWidget {
+  const RoomExplorationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                   else
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed("/room_detail");
+                        Navigator.of(context).pushNamed("/room/preview");
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

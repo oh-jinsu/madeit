@@ -4,7 +4,7 @@ import 'package:madeit/composition/room/widget/chat_bubble.dart';
 import 'package:madeit/composition/room/widget/continuos_chat_bubble.dart';
 
 class RoomPage extends StatefulWidget {
-  static const paddingHorizontal = 16.0;
+  static const paddingHorizontal = 12.0;
   static const avatarRadius = 20.0;
   static const gapFromAvatar = 8.0;
 
@@ -100,7 +100,7 @@ class _RoomPageState extends State<RoomPage> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed("/room_participant_log");
+                Navigator.of(context).pushNamed("/room/photolog");
               },
               iconSize: 24.0,
               icon: const Icon(Icons.people_alt_outlined),
@@ -109,52 +109,49 @@ class _RoomPageState extends State<RoomPage> {
         ),
         body: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.grey[200]!,
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed("/room/notification");
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey[200]!,
+                    ),
                   ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 16.0,
-                  right: 8.0,
-                  bottom: 4.0,
-                  top: 4.0,
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.campaign_outlined,
-                      size: 20.0,
-                      color: Colors.grey[600],
-                    ),
-                    const SizedBox(width: 8.0),
-                    const Expanded(
-                      child: Text(
-                        "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: CaptionTextStyle(),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 8.0,
+                    bottom: 8.0,
+                    top: 8.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.campaign_outlined,
+                        size: 20.0,
+                        color: Colors.grey[600],
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Container(
-                        width: 32.0,
-                        height: 32.0,
-                        color: Colors.transparent,
-                        child: Icon(
-                          Icons.chevron_right,
-                          color: Colors.grey[600],
-                          size: 20.0,
+                      const SizedBox(width: 8.0),
+                      const Expanded(
+                        child: Text(
+                          "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~ 안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~ 안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: CaptionTextStyle(),
                         ),
                       ),
-                    )
-                  ],
+                      const SizedBox(width: 8.0),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Colors.grey[400],
+                        size: 20.0,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

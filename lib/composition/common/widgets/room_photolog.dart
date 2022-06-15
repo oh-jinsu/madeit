@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 
-class RoomParticipantLogTile extends StatelessWidget {
+class RoomPhotolog extends StatelessWidget {
   static const paddingLeft = 16.0;
   static const avatarRadius = 16.0;
   static const headerVerticalPadding = 8.0;
   static const edgeSize = 8.0;
 
-  const RoomParticipantLogTile({Key? key}) : super(key: key);
+  const RoomPhotolog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

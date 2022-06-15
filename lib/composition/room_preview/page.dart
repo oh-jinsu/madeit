@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
-import 'package:madeit/composition/room_participant_log/widgets/tile.dart';
+import 'package:madeit/composition/common/widgets/room_photolog.dart';
 
-class RoomDetailPage extends StatelessWidget {
+class RoomPreviewPage extends StatelessWidget {
   static const paddingLeft = 20.0;
   static const paddingRight = 20.0;
 
   static const bottomContainerHeight = 44.0;
 
-  const RoomDetailPage({Key? key}) : super(key: key);
+  const RoomPreviewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class RoomDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 12.0),
               const Divider(),
-              for (int i = 0; i < 5; i++) const RoomParticipantLogTile(),
+              for (int i = 0; i < 5; i++) const RoomPhotolog(),
             ],
           ),
         ),

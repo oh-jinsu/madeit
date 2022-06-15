@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:madeit/composition/room_participant_log/widgets/tile.dart';
+import 'package:madeit/composition/common/widgets/room_photolog.dart';
 
-class RoomParticipantLog extends StatelessWidget {
-  const RoomParticipantLog({Key? key}) : super(key: key);
+class RoomPhotologListPage extends StatelessWidget {
+  const RoomPhotologListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class RoomParticipantLog extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (int i = 0; i < 16; i++) const RoomParticipantLogTile(),
+          for (int i = 0; i < 16; i++) const RoomPhotolog(),
         ],
       ),
     );
