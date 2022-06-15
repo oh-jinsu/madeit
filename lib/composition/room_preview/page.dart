@@ -17,7 +17,7 @@ class RoomPreviewPage extends StatelessWidget {
         color: Colors.white,
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(
-            top: 72.0,
+            top: 88.0,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,7 @@ class RoomPreviewPage extends StatelessWidget {
                         ),
                       ),
                       const TextSpan(
-                        text: "명이 함께 하고 있는\n",
+                        text: "명이 함께하고 있는\n",
                         style: TextStyle(
                           color: Colors.black,
                         ),
