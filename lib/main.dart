@@ -9,6 +9,7 @@ import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/composition/my_room_list/page.dart';
+import 'package:madeit/composition/profile/page.dart';
 import 'package:madeit/composition/room/page.dart';
 import 'package:madeit/composition/room_exploration/page.dart';
 import 'package:madeit/composition/room_notification_list/page.dart';
@@ -69,6 +70,14 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
       transitionDuration: Duration.zero,
       pageBuilder: (context, animation, secondAnimation) =>
           const MyRoomListPage(),
+    );
+  }
+
+  if (settings.name == "/profile") {
+    return PageRouteBuilder(
+      settings: settings,
+      transitionDuration: Duration.zero,
+      pageBuilder: (context, animation, secondAnimation) => const ProfilePage(),
     );
   }
 

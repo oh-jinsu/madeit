@@ -47,10 +47,7 @@ class MyRoomListPage extends StatelessWidget {
                       const SizedBox(height: 2.0),
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.black,
-                          ),
+                          style: const CaptionTextStyle(),
                           children: [
                             TextSpan(
                               text: "16명",
