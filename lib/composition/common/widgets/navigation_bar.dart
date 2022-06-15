@@ -16,7 +16,6 @@ class AppNavigationBar extends StatelessWidget {
         border: Border(
           top: BorderSide(
             color: Colors.grey[200]!,
-            width: 0.5,
           ),
         ),
       ),
