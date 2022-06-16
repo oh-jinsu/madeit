@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 
-class Photolog extends StatelessWidget {
+class Photolog extends StatefulWidget {
+  final photoLength = 3;
+
   static const paddingLeft = 16.0;
   static const avatarRadius = 16.0;
   static const headerVerticalPadding = 8.0;
@@ -12,8 +14,24 @@ class Photolog extends StatelessWidget {
 
   const Photolog({Key? key}) : super(key: key);
 
+  @override
+  State<Photolog> createState() => _PhotologState();
+}
+
+class _PhotologState extends State<Photolog> {
+  int curentPage = 0;
+
+  late final pageController = PageController(initialPage: curentPage);
+
   void _navigateToUserLog(BuildContext context) {
     Navigator.of(context).pushNamed("/participant");
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -29,9 +47,10 @@ class Photolog extends StatelessWidget {
                 color: Colors.white,
                 child: Container(
                   width: double.infinity,
-                  height: avatarRadius * 2 + headerVerticalPadding * 2,
+                  height: Photolog.avatarRadius * 2 +
+                      Photolog.headerVerticalPadding * 2,
                   padding: const EdgeInsets.only(
-                    left: paddingLeft,
+                    left: Photolog.paddingLeft,
                     right: 12.0,
                   ),
                   decoration: BoxDecoration(
@@ -41,7 +60,7 @@ class Photolog extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const Avatar(radius: avatarRadius),
+                      const Avatar(radius: Photolog.avatarRadius),
                       const SizedBox(width: 12.0),
                       Expanded(
                         child: RichText(
@@ -82,13 +101,56 @@ class Photolog extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AspectRatio(
+                  AspectRatio(
                     aspectRatio: 1.0,
-                    child: Image(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        "https://picsum.photos/1000/1000",
-                      ),
+                    child: Stack(
+                      children: [
+                        PageView(
+                          controller: pageController,
+                          physics: const ClampingScrollPhysics(),
+                          onPageChanged: (page) {
+                            setState(() {
+                              curentPage = page;
+                            });
+                          },
+                          children: [
+                            for (int i = 0; i < widget.photoLength; i++)
+                              Image(
+                                image: NetworkImage(
+                                  "https://picsum.photos/1000/${1000 + i}",
+                                ),
+                              ),
+                          ],
+                        ),
+                        Positioned(
+                          bottom: 8.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              for (int i = 0;
+                                  i < widget.photoLength * 2 - 1;
+                                  i++)
+                                if (i % 2 == 1)
+                                  const SizedBox(width: 4.0)
+                                else
+                                  Container(
+                                    width: 6.0,
+                                    height: 6.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3.0),
+                                      color: i ~/ 2 == curentPage
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Colors.grey[200],
+                                    ),
+                                  ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   InkWell(
@@ -156,13 +218,17 @@ class Photolog extends StatelessWidget {
           ],
         ),
         Positioned(
-          left: paddingLeft + avatarRadius - edgeSize * 0.5,
-          top: avatarRadius * 2 + headerVerticalPadding * 2 + edgeSize * -0.5,
+          left: Photolog.paddingLeft +
+              Photolog.avatarRadius -
+              Photolog.edgeSize * 0.5,
+          top: Photolog.avatarRadius * 2 +
+              Photolog.headerVerticalPadding * 2 +
+              Photolog.edgeSize * -0.5,
           child: Transform.rotate(
             angle: pi / 4,
             child: Container(
-              width: edgeSize,
-              height: edgeSize,
+              width: Photolog.edgeSize,
+              height: Photolog.edgeSize,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
