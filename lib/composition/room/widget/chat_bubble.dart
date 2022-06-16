@@ -9,6 +9,7 @@ class ChatBubble extends StatelessWidget {
   final String message;
   final DateTime dateTime;
   final double maxwidth;
+  final bool isContinous;
 
   const ChatBubble({
     Key? key,
@@ -18,6 +19,7 @@ class ChatBubble extends StatelessWidget {
     required this.message,
     required this.dateTime,
     required this.maxwidth,
+    this.isContinous = false,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,11 @@ class ChatBubble extends StatelessWidget {
           isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!isMine) ...[
+        if (isContinous)
+          const SizedBox(
+            width: 48.0,
+          )
+        else if (!isMine) ...[
           GestureDetector(
             onTap: onAvatarTap,
             child: const Avatar(radius: 20.0),
@@ -38,40 +44,42 @@ class ChatBubble extends StatelessWidget {
           crossAxisAlignment:
               isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 2.0),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!isMine) ...[
-                  Text(
-                    username,
-                    style: const TextStyle(
-                      fontSize: 12.0,
+            if (!isContinous) ...[
+              const SizedBox(height: 2.0),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (!isMine) ...[
+                    Text(
+                      username,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                      ),
                     ),
-                  ),
+                    RichText(
+                      text: const TextSpan(
+                        style: CaptionTextStyle(),
+                        children: [
+                          TextSpan(
+                            text: " • ",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                   RichText(
                     text: const TextSpan(
                       style: CaptionTextStyle(),
                       children: [
                         TextSpan(
-                          text: " • ",
+                          text: "오후 02:30",
                         ),
                       ],
                     ),
                   ),
                 ],
-                RichText(
-                  text: const TextSpan(
-                    style: CaptionTextStyle(),
-                    children: [
-                      TextSpan(
-                        text: "오후 02:30",
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
             const SizedBox(height: 4.0),
             Container(
               padding: const EdgeInsets.symmetric(
@@ -84,8 +92,9 @@ class ChatBubble extends StatelessWidget {
                     : Colors.white,
                 border: isMine ? null : Border.all(color: Colors.grey[200]!),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(isMine ? 16.0 : 0.0),
-                  topRight: Radius.circular(isMine ? 0.0 : 16.0),
+                  topLeft: Radius.circular(isContinous || isMine ? 16.0 : 0.0),
+                  topRight:
+                      Radius.circular(isContinous || !isMine ? 16.0 : 0.0),
                   bottomRight: const Radius.circular(16.0),
                   bottomLeft: const Radius.circular(16.0),
                 ),

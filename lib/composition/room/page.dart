@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/room/widget/chat_bubble.dart';
-import 'package:madeit/composition/room/widget/continuos_chat_bubble.dart';
 
 class RoomPage extends StatefulWidget {
   static const paddingHorizontal = 12.0;
@@ -172,12 +171,13 @@ class _RoomPageState extends State<RoomPage> {
                 ),
                 reverse: true,
                 children: [
-                  CountinuosChatBubble(
+                  ChatBubble(
                     isMine: true,
                     username: "오진수",
                     message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
                     dateTime: DateTime.now(),
                     maxwidth: RoomPage.getMaxChatBubbleWidth(context),
+                    isContinous: true,
                   ),
                   ChatBubble(
                     isMine: true,
@@ -188,12 +188,13 @@ class _RoomPageState extends State<RoomPage> {
                   ),
                   const SizedBox(height: 20.0),
                   for (int i = 0; i < 10 * 2 - 1; i++) ...[
-                    CountinuosChatBubble(
+                    ChatBubble(
                       isMine: false,
                       username: "조대훈",
                       message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
                       dateTime: DateTime.now(),
                       maxwidth: RoomPage.getMaxChatBubbleWidth(context),
+                      isContinous: true,
                     ),
                     ChatBubble(
                       onAvatarTap: () =>
