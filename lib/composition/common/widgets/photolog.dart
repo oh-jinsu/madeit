@@ -5,14 +5,27 @@ import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 
 class Photolog extends StatefulWidget {
-  final photoLength = 3;
-
   static const paddingLeft = 16.0;
   static const avatarRadius = 16.0;
   static const headerVerticalPadding = 8.0;
   static const edgeSize = 8.0;
 
-  const Photolog({Key? key}) : super(key: key);
+  final photoLength = 3;
+
+  final String username;
+  final bool showSuccesRate;
+  final bool showJoinedAt;
+  final bool showMoreButton;
+  final void Function()? onTap;
+
+  const Photolog({
+    Key? key,
+    required this.username,
+    this.showSuccesRate = true,
+    this.showJoinedAt = true,
+    this.showMoreButton = false,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   State<Photolog> createState() => _PhotologState();
@@ -22,10 +35,6 @@ class _PhotologState extends State<Photolog> {
   int curentPage = 0;
 
   late final pageController = PageController(initialPage: curentPage);
-
-  void _navigateToUserLog(BuildContext context) {
-    Navigator.of(context).pushNamed("/participant");
-  }
 
   @override
   void dispose() {
@@ -42,7 +51,7 @@ class _PhotologState extends State<Photolog> {
         Column(
           children: [
             GestureDetector(
-              onTap: () => _navigateToUserLog(context),
+              onTap: widget.onTap,
               child: Ink(
                 color: Colors.white,
                 child: Container(
@@ -67,30 +76,42 @@ class _PhotologState extends State<Photolog> {
                           text: TextSpan(
                             style: const CaptionTextStyle(),
                             children: [
-                              const TextSpan(
-                                text: "나",
-                                style: TextStyle(
+                              TextSpan(
+                                text: widget.username,
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const TextSpan(text: " · 성공률 "),
-                              TextSpan(
-                                text: "87%",
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
+                              if (widget.showSuccesRate) ...[
+                                const TextSpan(text: " · 성공률 "),
+                                TextSpan(
+                                  text: "87%",
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const TextSpan(text: " · 2022.03.12 가입"),
+                              ],
+                              if (widget.showJoinedAt)
+                                const TextSpan(text: " · 2022.03.12 가입"),
                             ],
                           ),
                         ),
                       ),
-                      Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey[400],
-                      ),
+                      if (widget.onTap != null)
+                        Icon(
+                          Icons.chevron_right,
+                          size: 20.0,
+                          color: Colors.grey[400],
+                        )
+                      else if (widget.showMoreButton)
+                        Icon(
+                          Icons.more_vert,
+                          size: 20.0,
+                          color: Colors.grey[400],
+                        )
                     ],
                   ),
                 ),
@@ -154,7 +175,7 @@ class _PhotologState extends State<Photolog> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => _navigateToUserLog(context),
+                    onTap: widget.onTap,
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 16.0,

@@ -16,7 +16,15 @@ class RoomPhotologListPage extends StatelessWidget {
       body: ListView(
         children: [
           for (int i = 0; i < 16 * 2 + 1; i++)
-            if (i % 2 == 0) const Divider() else const Photolog(),
+            if (i % 2 == 0)
+              const Divider()
+            else
+              Photolog(
+                username: "조대훈",
+                onTap: () {
+                  Navigator.of(context).pushNamed("/participant");
+                },
+              ),
         ],
       ),
     );

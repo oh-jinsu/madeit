@@ -107,7 +107,12 @@ class RoomPreviewPage extends StatelessWidget {
               const SizedBox(height: 12.0),
               const Divider(),
               for (int i = 0; i < 5 * 2 + 1; i++)
-                if (i % 2 == 0) const Divider() else const Photolog(),
+                if (i % 2 == 0)
+                  const Divider()
+                else
+                  const Photolog(
+                    username: "익명",
+                  ),
             ],
           ),
         ),
