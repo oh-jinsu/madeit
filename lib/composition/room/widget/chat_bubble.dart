@@ -3,6 +3,7 @@ import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 
 class ChatBubble extends StatelessWidget {
+  final void Function()? onAvatarTap;
   final bool isMine;
   final String username;
   final String message;
@@ -11,6 +12,7 @@ class ChatBubble extends StatelessWidget {
 
   const ChatBubble({
     Key? key,
+    this.onAvatarTap,
     required this.isMine,
     required this.username,
     required this.message,
@@ -26,7 +28,10 @@ class ChatBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (!isMine) ...[
-          const Avatar(radius: 20.0),
+          GestureDetector(
+            onTap: onAvatarTap,
+            child: const Avatar(radius: 20.0),
+          ),
           const SizedBox(width: 8.0),
         ],
         Column(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 
-class ProfileRecordItem extends StatelessWidget {
+class RecordItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final String content;
 
-  const ProfileRecordItem({
+  const RecordItem({
     Key? key,
     required this.icon,
     required this.label,

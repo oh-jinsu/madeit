@@ -196,6 +196,8 @@ class _RoomPageState extends State<RoomPage> {
                       maxwidth: RoomPage.getMaxChatBubbleWidth(context),
                     ),
                     ChatBubble(
+                      onAvatarTap: () =>
+                          Navigator.of(context).pushNamed("/participant"),
                       isMine: false,
                       username: "조대훈",
                       message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",

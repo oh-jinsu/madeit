@@ -3,9 +3,9 @@ import 'package:madeit/composition/common/constants/strings.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 import 'package:madeit/composition/common/widgets/navigation_bar.dart';
+import 'package:madeit/composition/common/widgets/record_group.dart';
 import 'package:madeit/composition/profile/widget/group.dart';
 import 'package:madeit/composition/profile/widget/menu.dart';
-import 'package:madeit/composition/profile/widget/record_item.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class ProfilePage extends StatelessWidget {
             const Center(
               child: Avatar(radius: 40.0),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 12.0),
             const Text(
               "오진수",
               style: TextStyle(
@@ -35,47 +35,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16.0),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey[200]!,
-                ),
-                borderRadius: BorderRadius.circular(12.0),
-                color: Colors.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Spacer(),
-                  Expanded(
-                    flex: 9,
-                    child: ProfileRecordItem(
-                      icon: Icons.verified_outlined,
-                      label: "잘했어요",
-                      content: "101",
-                    ),
-                  ),
-                  Expanded(
-                    flex: 9,
-                    child: ProfileRecordItem(
-                      icon: Icons.favorite_outline,
-                      label: "좋아요",
-                      content: "324",
-                    ),
-                  ),
-                  Expanded(
-                    flex: 9,
-                    child: ProfileRecordItem(
-                      icon: Icons.waving_hand_outlined,
-                      label: "힘내요",
-                      content: "75",
-                    ),
-                  ),
-                  Spacer(),
-                ],
-              ),
-            ),
+            const RecordGroup(),
             const SizedBox(height: 16.0),
             const ProfileGroup(
               children: [

@@ -12,6 +12,10 @@ class Photolog extends StatelessWidget {
 
   const Photolog({Key? key}) : super(key: key);
 
+  void _navigateToUserLog(BuildContext context) {
+    Navigator.of(context).pushNamed("/participant");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,62 +23,57 @@ class Photolog extends StatelessWidget {
       children: [
         Column(
           children: [
-            Ink(
-              color: Colors.white,
-              child: Container(
-                width: double.infinity,
-                height: avatarRadius * 2 + headerVerticalPadding * 2,
-                padding: const EdgeInsets.only(
-                  left: paddingLeft,
-                  right: 8.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey[200]!),
+            GestureDetector(
+              onTap: () => _navigateToUserLog(context),
+              child: Ink(
+                color: Colors.white,
+                child: Container(
+                  width: double.infinity,
+                  height: avatarRadius * 2 + headerVerticalPadding * 2,
+                  padding: const EdgeInsets.only(
+                    left: paddingLeft,
+                    right: 12.0,
                   ),
-                ),
-                child: Row(
-                  children: [
-                    const Avatar(radius: avatarRadius),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          style: const CaptionTextStyle(),
-                          children: [
-                            const TextSpan(
-                              text: "나",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.grey[200]!),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Avatar(radius: avatarRadius),
+                      const SizedBox(width: 12.0),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            style: const CaptionTextStyle(),
+                            children: [
+                              const TextSpan(
+                                text: "나",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const TextSpan(text: " · 성공률 "),
-                            TextSpan(
-                              text: "87%",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
+                              const TextSpan(text: " · 성공률 "),
+                              TextSpan(
+                                text: "87%",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const TextSpan(text: " · 2022.03.12 가입"),
-                          ],
+                              const TextSpan(text: " · 2022.03.12 가입"),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: SizedBox(
-                        width: 32.0,
-                        height: 32.0,
-                        child: Icon(
-                          Icons.chevron_right,
-                          color: Colors.grey[400],
-                        ),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Colors.grey[400],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -93,7 +92,7 @@ class Photolog extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => _navigateToUserLog(context),
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 16.0,
