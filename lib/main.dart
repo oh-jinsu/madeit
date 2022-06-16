@@ -168,7 +168,7 @@ class _ApplicationState extends State<Application> {
         ),
         dividerTheme: DividerThemeData(
           color: Colors.grey[200],
-          space: 1.0,
+          space: 0.0,
           thickness: 1.0,
         ),
       ),

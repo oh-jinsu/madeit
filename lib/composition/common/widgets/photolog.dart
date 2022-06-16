@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 
-class RoomPhotolog extends StatelessWidget {
+class Photolog extends StatelessWidget {
   static const paddingLeft = 16.0;
   static const avatarRadius = 16.0;
   static const headerVerticalPadding = 8.0;
   static const edgeSize = 8.0;
 
-  const RoomPhotolog({Key? key}) : super(key: key);
+  const Photolog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,76 +78,82 @@ class RoomPhotolog extends StatelessWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {},
-              child: Ink(
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
+            Ink(
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        "https://picsum.photos/1000/1000",
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
                       padding: const EdgeInsets.only(
                         left: 16.0,
-                        top: 8.0,
+                        right: 8.0,
                       ),
-                      child: RichText(
-                        text: const TextSpan(
-                          style: CaptionTextStyle(),
-                          children: [
-                            TextSpan(
-                              text: "1일 전",
-                            ),
-                            TextSpan(
-                              text: " · 인증됨 ✅",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        left: 16.0,
-                        top: 4.0,
-                        right: 16.0,
-                      ),
-                      child: Text(
-                        "야호! 오늘도 만 걸음 걸었다!",
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: BodyTextStyle(),
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    SizedBox(
-                      height: 80.0,
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (int i = 0; i < 1; i++)
-                            if (i % 2 == 1)
-                              const SizedBox(width: 4.0)
-                            else
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4.0),
-                                child: const Image(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    "https://picsum.photos/300/300",
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 10.0),
+                                RichText(
+                                  text: const TextSpan(
+                                    style: CaptionTextStyle(),
+                                    children: [
+                                      TextSpan(
+                                        text: "1일 전",
+                                      ),
+                                      TextSpan(
+                                        text: " · 좋아요 11개",
+                                      ),
+                                      TextSpan(
+                                        text: " · 인증됨 ✅",
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                const SizedBox(height: 8.0),
+                                const Text(
+                                  "야호! 오늘도 만 걸음 걸었다! 야호! 오늘도 만 걸음 걸었다! 야호! 오늘도 만 걸음 걸었다! 야호! 오늘도 만 걸음 걸었다! 야호! 오늘도 만 걸음 걸었다!",
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: BodyTextStyle(),
+                                ),
+                                const SizedBox(height: 6.0),
+                                const SizedBox(height: 10.0),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            borderRadius: BorderRadius.circular(32.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Icon(
+                                Icons.favorite_outline,
+                                size: 20.0,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
+                            ),
+                          )
                         ],
                       ),
                     ),
-                    const SizedBox(height: 16.0),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            const Divider()
           ],
         ),
         Positioned(

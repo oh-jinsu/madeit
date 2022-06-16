@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madeit/composition/common/widgets/room_photolog.dart';
+import 'package:madeit/composition/common/widgets/photolog.dart';
 
 class RoomPhotologListPage extends StatelessWidget {
   const RoomPhotologListPage({Key? key}) : super(key: key);
@@ -15,7 +15,8 @@ class RoomPhotologListPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (int i = 0; i < 16; i++) const RoomPhotolog(),
+          for (int i = 0; i < 16 * 2 + 1; i++)
+            if (i % 2 == 0) const Divider() else const Photolog(),
         ],
       ),
     );

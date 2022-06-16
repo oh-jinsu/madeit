@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
-import 'package:madeit/composition/common/widgets/room_photolog.dart';
+import 'package:madeit/composition/common/widgets/photolog.dart';
 
 class RoomPreviewPage extends StatelessWidget {
   static const paddingLeft = 16.0;
@@ -106,56 +106,62 @@ class RoomPreviewPage extends StatelessWidget {
               ),
               const SizedBox(height: 12.0),
               const Divider(),
-              for (int i = 0; i < 5; i++) const RoomPhotolog(),
+              for (int i = 0; i < 5 * 2 + 1; i++)
+                if (i % 2 == 0) const Divider() else const Photolog(),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-          left: paddingLeft,
-          right: paddingRight,
-          bottom: 4.0,
-          top: 4.0,
-        ),
-        child: SafeArea(
-          child: Row(
-            children: [
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.grey[200]!),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  fixedSize: const Size(
-                    bottomContainerHeight,
-                    bottomContainerHeight,
-                  ),
-                  minimumSize: const Size(
-                    bottomContainerHeight,
-                    bottomContainerHeight,
-                  ),
-                ),
-                child: Icon(
-                  Icons.chevron_left,
-                  color: Colors.grey[400],
-                ),
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed("/room");
-                  },
+      bottomNavigationBar: Ink(
+        color: Colors.white,
+        child: Container(
+          padding: const EdgeInsets.only(
+            left: paddingLeft,
+            right: paddingRight,
+            bottom: 4.0,
+            top: 4.0,
+          ),
+          decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.grey[200]!))),
+          child: SafeArea(
+            child: Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(bottomContainerHeight),
+                    primary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.grey[200]!),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    fixedSize: const Size(
+                      bottomContainerHeight,
+                      bottomContainerHeight,
+                    ),
+                    minimumSize: const Size(
+                      bottomContainerHeight,
+                      bottomContainerHeight,
+                    ),
                   ),
-                  child: const Text("참여하기"),
+                  child: Icon(
+                    Icons.chevron_left,
+                    color: Colors.grey[400],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed("/room");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(bottomContainerHeight),
+                    ),
+                    child: const Text("참여하기"),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
