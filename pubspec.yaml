@@ -16,9 +16,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.5+3
   flutter_dotenv: ^5.0.2
-  flutter_signin_button: ^2.0.0
   google_sign_in: ^5.3.3
   sign_in_with_apple: ^4.0.0
+  kakao_flutter_sdk: ^1.1.1
   crypto: ^3.0.2
   firebase_core: ^1.17.1
   firebase_messaging: ^11.4.1
@@ -40,4 +40,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - .env
+    - .env
+    - assets/images/

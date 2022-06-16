@@ -1,4 +1,7 @@
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:madeit/application/events/sign_in_cancled.dart';
 import 'package:madeit/application/events/sign_in_pending.dart';
 import 'package:madeit/application/events/third_party_account_found.dart';
@@ -62,6 +65,49 @@ void thirdPartyAccountEffect(ThirdPartyAccountRequested event) async {
       } catch (e) {
         dispatch(const SignInCanceled());
       }
+      break;
+    case "kakao":
+      dispatch(const SignInPending());
+
+      KakaoSdk.init(
+        nativeAppKey: dotenv.get("KAKAO_NATIVE_APP_KEY"),
+      );
+
+      try {
+        final authorization = await () async {
+          if (await isKakaoTalkInstalled()) {
+            try {
+              return UserApi.instance.loginWithKakaoTalk();
+            } catch (e) {
+              if (e is PlatformException && e.code == "CANCELED") {
+                rethrow;
+              }
+
+              return UserApi.instance.loginWithKakaoAccount();
+            }
+          } else {
+            return UserApi.instance.loginWithKakaoAccount();
+          }
+        }();
+
+        final idToken = authorization.idToken;
+
+        if (idToken == null) {
+          return dispatch(const SignInCanceled());
+        }
+
+        final user = await UserApi.instance.me();
+
+        dispatch(ThirdPartyAccountFound(
+          provider: "kakao",
+          idToken: idToken,
+          name: user.kakaoAccount?.name,
+          email: user.kakaoAccount?.email,
+        ));
+      } catch (e) {
+        dispatch(const SignInCanceled());
+      }
+
       break;
   }
 }
