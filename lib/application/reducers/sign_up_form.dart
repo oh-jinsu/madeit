@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:madeit/application/events/sign_up_avatar_found.dart';
 import 'package:madeit/application/events/sign_up_canceled.dart';
 import 'package:madeit/application/events/sign_up_finished.dart';
@@ -70,12 +72,12 @@ SignUpFormModel? signUpFormReducer({
       ),
     );
 
-    if (event.value.length < 2) {
-      return copy.copy(nameMessage: const Option("이름은 두 글자보다 같거나 길어야 해요."));
+    if (utf8.encode(event.value).length < 6) {
+      return copy.copy(nameMessage: const Option("이름이 너무 짧아요."));
     }
 
-    if (event.value.length > 8) {
-      return copy.copy(nameMessage: const Option("이름은 두 글자보다 같거나 길어야 해요."));
+    if (utf8.encode(event.value).length > 24) {
+      return copy.copy(nameMessage: const Option("이름이 너무 길어요."));
     }
 
     return copy.copy(nameMessage: const Option(null));
