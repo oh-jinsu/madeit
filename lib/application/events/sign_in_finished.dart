@@ -1,0 +1,3 @@
+class SignInFinished {
+  const SignInFinished();
+}

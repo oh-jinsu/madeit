@@ -4,10 +4,15 @@ import 'package:madeit/application/effects/env.dart';
 import 'package:madeit/application/effects/firebase.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
+import 'package:madeit/application/effects/repository.dart';
+import 'package:madeit/application/effects/signin.dart';
+import 'package:madeit/application/effects/third_party_account.dart';
 import 'package:madeit/application/effects/splash_waiter.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
+import 'package:madeit/application/reducers/sign_in_form.dart';
+import 'package:madeit/application/reducers/user.dart';
 import 'package:madeit/composition/my_room_list/page.dart';
 import 'package:madeit/composition/participant/page.dart';
 import 'package:madeit/composition/profile/page.dart';
@@ -16,6 +21,7 @@ import 'package:madeit/composition/room_exploration/page.dart';
 import 'package:madeit/composition/room_notification_list/page.dart';
 import 'package:madeit/composition/room_photolog_list/page.dart';
 import 'package:madeit/composition/room_preview/page.dart';
+import 'package:madeit/composition/signin/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
 import 'package:madeit/core/effect.dart';
@@ -27,7 +33,7 @@ final _globalKey = GlobalKey<NavigatorState>();
 
 BuildContext get requireContext => _globalKey.currentContext!;
 
-NavigatorState get currentState => _globalKey.currentState!;
+NavigatorState get requireNavigator => _globalKey.currentState!;
 
 Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   if (settings.name == "/splash") {
@@ -90,6 +96,12 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     );
   }
 
+  if (settings.name == "/signin") {
+    return MaterialPageRoute(
+      builder: (context) => const SignInPage(),
+    );
+  }
+
   return null;
 }
 
@@ -112,14 +124,19 @@ class _ApplicationState extends State<Application> {
   void initState() {
     initializeChannel();
 
+    touchStore(userStore);
+    touchStore(signInFormStore);
     touchStore(listOfRoomStore);
 
     useEffect(envEffect);
     useEffect(firebaseEffect);
+    useEffect(repositoryEffect);
     useEffect(providerEffect);
     useEffect(wsEffect);
     useEffect(prefetchRoomsEffect);
     useEffect(splashWaiterEffect);
+    useEffect(thirdPartyAccountEffect);
+    useEffect(signInEffect);
 
     dispatch(const AppStarted());
 

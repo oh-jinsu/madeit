@@ -1,0 +1,3 @@
+class RepositoryInjected {
+  const RepositoryInjected();
+}

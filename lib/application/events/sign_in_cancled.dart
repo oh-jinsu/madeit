@@ -1,0 +1,3 @@
+class SignInCanceled {
+  const SignInCanceled();
+}

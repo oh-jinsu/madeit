@@ -1,0 +1,3 @@
+class SignInPending {
+  const SignInPending();
+}
