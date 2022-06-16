@@ -1,0 +1,3 @@
+class SignUpAvatarRequested {
+  const SignUpAvatarRequested();
+}

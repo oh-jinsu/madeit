@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:madeit/application/effects/create_user.dart';
 import 'package:madeit/application/effects/env.dart';
 import 'package:madeit/application/effects/firebase.dart';
+import 'package:madeit/application/effects/pick_sign_up_avatar.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
 import 'package:madeit/application/effects/repository.dart';
+import 'package:madeit/application/effects/sign_up.dart';
 import 'package:madeit/application/effects/signin.dart';
 import 'package:madeit/application/effects/third_party_account.dart';
 import 'package:madeit/application/effects/splash_waiter.dart';
@@ -12,6 +15,7 @@ import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/application/reducers/sign_in_form.dart';
+import 'package:madeit/application/reducers/sign_up_form.dart';
 import 'package:madeit/application/reducers/user.dart';
 import 'package:madeit/composition/my_room_list/page.dart';
 import 'package:madeit/composition/participant/page.dart';
@@ -22,6 +26,7 @@ import 'package:madeit/composition/room_notification_list/page.dart';
 import 'package:madeit/composition/room_photolog_list/page.dart';
 import 'package:madeit/composition/room_preview/page.dart';
 import 'package:madeit/composition/signin/page.dart';
+import 'package:madeit/composition/signup/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
 import 'package:madeit/core/effect.dart';
@@ -102,6 +107,19 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     );
   }
 
+  if (settings.name == "/signup") {
+    final arguments = settings.arguments as Map;
+
+    return MaterialPageRoute(
+      builder: (context) => SignUpPage(
+        name: arguments["name"],
+        email: arguments["email"],
+        provider: arguments["provider"],
+        idToken: arguments["id_token"],
+      ),
+    );
+  }
+
   return null;
 }
 
@@ -126,6 +144,7 @@ class _ApplicationState extends State<Application> {
 
     touchStore(userStore);
     touchStore(signInFormStore);
+    touchStore(signUpFormStore);
     touchStore(listOfRoomStore);
 
     useEffect(envEffect);
@@ -137,6 +156,9 @@ class _ApplicationState extends State<Application> {
     useEffect(splashWaiterEffect);
     useEffect(thirdPartyAccountEffect);
     useEffect(signInEffect);
+    useEffect(pickSignUpAvatarEffect);
+    useEffect(signUp);
+    useEffect(createUser);
 
     dispatch(const AppStarted());
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CaptionTextStyle extends TextStyle {
-  const CaptionTextStyle()
-      : super(
-          color: const Color(0xff757575),
+  const CaptionTextStyle({
+    Color color = const Color(0xff757575),
+  }) : super(
+          color: color,
           fontSize: 12.0,
         );
 }

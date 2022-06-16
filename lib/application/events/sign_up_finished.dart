@@ -1,0 +1,3 @@
+class SignUpFinished {
+  const SignUpFinished();
+}

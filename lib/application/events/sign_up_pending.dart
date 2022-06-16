@@ -1,0 +1,3 @@
+class SignUpPending {
+  const SignUpPending();
+}
