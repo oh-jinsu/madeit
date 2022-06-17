@@ -1,1 +1,1 @@
-typedef Reducer<T> = T? Function({T? state, dynamic event});
+typedef Reducer<T> = T Function({T state, dynamic event});

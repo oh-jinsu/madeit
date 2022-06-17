@@ -6,6 +6,7 @@ import 'package:madeit/application/reducers/sign_in_form.dart';
 import 'package:madeit/composition/signin/widget/signin_button_apple.dart';
 import 'package:madeit/composition/signin/widget/signin_button_google.dart';
 import 'package:madeit/composition/signin/widget/signin_button_kakao.dart';
+import 'package:madeit/core/builder.dart';
 import 'package:madeit/core/channel.dart';
 
 class SignInPage extends StatelessWidget {
@@ -63,57 +64,48 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              StreamBuilder<bool?>(
-                stream: signInFormStore.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final data = snapshot.data;
+              watch(signInFormStore)(
+                (value) => Column(
+                  children: [
+                    if (Platform.isIOS) ...[
+                      SignInButtonApple(
+                        onTap: () {
+                          if (value != true) {
+                            return;
+                          }
 
-                    return Column(
-                      children: [
-                        if (Platform.isIOS) ...[
-                          SignInButtonApple(
-                            onTap: () {
-                              if (data != true) {
-                                return;
-                              }
+                          dispatch(
+                            const ThirdPartyAccountRequested("apple"),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 12.0),
+                    ],
+                    SignInButtonGoogle(
+                      onTap: () {
+                        if (value != true) {
+                          return;
+                        }
 
-                              dispatch(
-                                const ThirdPartyAccountRequested("apple"),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 12.0),
-                        ],
-                        SignInButtonGoogle(
-                          onTap: () {
-                            if (data != true) {
-                              return;
-                            }
+                        dispatch(
+                          const ThirdPartyAccountRequested("google"),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 12.0),
+                    SignInButtonKakao(
+                      onTap: () {
+                        if (value != true) {
+                          return;
+                        }
 
-                            dispatch(
-                              const ThirdPartyAccountRequested("google"),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 12.0),
-                        SignInButtonKakao(
-                          onTap: () {
-                            if (data != true) {
-                              return;
-                            }
-
-                            dispatch(
-                              const ThirdPartyAccountRequested("kakao"),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  }
-
-                  return const SizedBox();
-                },
+                        dispatch(
+                          const ThirdPartyAccountRequested("kakao"),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

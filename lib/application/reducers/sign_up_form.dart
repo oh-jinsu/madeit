@@ -35,40 +35,37 @@ bool _isValid({
   return true;
 }
 
-SignUpFormModel? signUpFormReducer({
-  SignUpFormModel? state,
+SignUpFormModel signUpFormReducer({
+  SignUpFormModel state = const SignUpFormModel(
+    avatar: Option(null),
+    name: "",
+    nameMessage: Option(null),
+    isServiceAgreed: false,
+    isPrivacyAgreed: false,
+    isPending: false,
+    isValid: false,
+  ),
   dynamic event,
 }) {
-  final current = state ??
-      const SignUpFormModel(
-        avatar: Option(null),
-        name: "",
-        nameMessage: Option(null),
-        isServiceAgreed: false,
-        isPrivacyAgreed: false,
-        isPending: false,
-        isValid: false,
-      );
-
   if (event is SignUpPending) {
-    return current.copy(isPending: true);
+    return state.copy(isPending: true);
   }
 
   if (event is SignUpCanceled || event is SignUpFinished) {
-    return current.copy(isPending: false);
+    return state.copy(isPending: false);
   }
 
   if (event is SignUpAvatarFound) {
-    return current.copy(avatar: Option(event.file));
+    return state.copy(avatar: Option(event.file));
   }
 
   if (event is SignUpNameChanged) {
-    final copy = current.copy(
+    final copy = state.copy(
       name: event.value,
       isValid: _isValid(
         name: event.value,
-        isServiceAgreed: current.isServiceAgreed,
-        isPrivacyAgreed: current.isPrivacyAgreed,
+        isServiceAgreed: state.isServiceAgreed,
+        isPrivacyAgreed: state.isPrivacyAgreed,
       ),
     );
 
@@ -84,28 +81,28 @@ SignUpFormModel? signUpFormReducer({
   }
 
   if (event is SignUpServiceAgreementChanged) {
-    return current.copy(
+    return state.copy(
       isServiceAgreed: event.value,
       isValid: _isValid(
-        name: current.name,
+        name: state.name,
         isServiceAgreed: event.value,
-        isPrivacyAgreed: current.isPrivacyAgreed,
+        isPrivacyAgreed: state.isPrivacyAgreed,
       ),
     );
   }
 
   if (event is SignUpPrivacyAgreementChanged) {
-    return current.copy(
+    return state.copy(
       isPrivacyAgreed: event.value,
       isValid: _isValid(
-        name: current.name,
-        isServiceAgreed: current.isServiceAgreed,
+        name: state.name,
+        isServiceAgreed: state.isServiceAgreed,
         isPrivacyAgreed: event.value,
       ),
     );
   }
 
-  return current;
+  return state;
 }
 
 final signUpFormStore = createStore(signUpFormReducer);

@@ -4,21 +4,26 @@ import 'package:madeit/core/channel.dart';
 import 'package:madeit/core/reducer.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class Store<T> {
-  Stream<T?> get stream;
+abstract class StoreApi<T> {
+  T get state;
+
+  Stream<T> get stream;
 
   void _initialize();
 
   void _dispatch(dynamic event);
 }
 
-class _Store<T> implements Store<T> {
+class _Store<T> implements StoreApi<T> {
   final Reducer<T> reducer;
 
-  final subject = BehaviorSubject<T?>();
+  final subject = BehaviorSubject<T>();
 
   @override
-  Stream<T?> get stream => subject;
+  T get state => subject.value;
+
+  @override
+  Stream<T> get stream => subject;
 
   _Store(this.reducer);
 
@@ -29,17 +34,17 @@ class _Store<T> implements Store<T> {
 
   @override
   void _dispatch(event) {
-    final result = reducer(state: subject.stream.valueOrNull, event: event);
+    final result = reducer(state: subject.stream.value, event: event);
 
     subject.sink.add(result);
   }
 }
 
-Store<T> createStore<T>(Reducer<T> reducer) {
+StoreApi<T> createStore<T>(Reducer<T> reducer) {
   return _Store(reducer);
 }
 
-StreamSubscription useStore(Store store) {
+StreamSubscription open(StoreApi store) {
   store._initialize();
 
   final subscription = listen((event) {
