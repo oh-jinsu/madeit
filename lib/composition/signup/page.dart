@@ -14,7 +14,7 @@ import 'package:madeit/composition/common/widgets/avatar.dart';
 import 'package:madeit/composition/signup/widgets/radio_box.dart';
 import 'package:madeit/composition/signup/widgets/row.dart';
 import 'package:madeit/core/channel.dart';
-import 'package:madeit/core/effect.dart';
+import 'package:madeit/core/manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -35,14 +35,16 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  late StreamSubscription waiterSubscription;
+class _SignUpPageState extends State<SignUpPage> with SubscriptionManagerMixin {
+  final subscriptions = <StreamSubscription>[];
 
   final nameFocusNode = FocusNode();
 
   @override
   void initState() {
-    waiterSubscription = useEffect((SignUpFinished event) {
+    useStore(signUpFormStore);
+
+    useEffect((SignUpFinished event) {
       Navigator.of(context).pop();
     });
 
@@ -56,8 +58,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void dispose() {
     nameFocusNode.dispose();
-
-    waiterSubscription.cancel();
 
     super.dispose();
   }

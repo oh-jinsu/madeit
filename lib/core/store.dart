@@ -7,18 +7,25 @@ import 'package:rxdart/rxdart.dart';
 abstract class Store<T> {
   ValueStream<T?> get stream;
 
+  void _initialize();
+
   void _dispatch(dynamic event);
 }
 
 class _Store<T> implements Store<T> {
   final Reducer<T> reducer;
 
-  late final subject = BehaviorSubject<T?>.seeded(reducer());
+  final subject = BehaviorSubject<T?>();
 
   @override
   ValueStream<T?> get stream => subject;
 
   _Store(this.reducer);
+
+  @override
+  void _initialize() {
+    subject.add(reducer());
+  }
 
   @override
   void _dispatch(event) {
@@ -33,6 +40,8 @@ Store<T> createStore<T>(Reducer<T> reducer) {
 }
 
 StreamSubscription useStore(Store store) {
+  store._initialize();
+
   final subscription = listen((event) {
     store._dispatch(event);
   });

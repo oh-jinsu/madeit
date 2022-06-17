@@ -25,9 +25,3 @@ StreamSubscription listen(
 }
 
 void dispatch(dynamic event) => _channel.sink.add(event);
-
-void initializeChannel() {
-  for (final subscription in _subscriptions) {
-    subscription.cancel();
-  }
-}

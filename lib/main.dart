@@ -10,12 +10,10 @@ import 'package:madeit/application/effects/repository.dart';
 import 'package:madeit/application/effects/sign_up.dart';
 import 'package:madeit/application/effects/signin.dart';
 import 'package:madeit/application/effects/third_party_account.dart';
-import 'package:madeit/application/effects/splash_waiter.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/reducers/list_of_room.dart';
 import 'package:madeit/application/reducers/sign_in_form.dart';
-import 'package:madeit/application/reducers/sign_up_form.dart';
 import 'package:madeit/application/reducers/user.dart';
 import 'package:madeit/composition/my_room_list/page.dart';
 import 'package:madeit/composition/participant/page.dart';
@@ -29,8 +27,7 @@ import 'package:madeit/composition/signin/page.dart';
 import 'package:madeit/composition/signup/page.dart';
 import 'package:madeit/composition/splash/page.dart';
 import 'package:madeit/core/channel.dart';
-import 'package:madeit/core/effect.dart';
-import 'package:madeit/core/store.dart';
+import 'package:madeit/core/manager.dart';
 
 void main() => runApp(const Application());
 
@@ -137,14 +134,12 @@ class Application extends StatefulWidget {
   State<Application> createState() => _ApplicationState();
 }
 
-class _ApplicationState extends State<Application> {
+class _ApplicationState extends State<Application>
+    with SubscriptionManagerMixin {
   @override
   void initState() {
-    initializeChannel();
-
     useStore(userStore);
     useStore(signInFormStore);
-    useStore(signUpFormStore);
     useStore(listOfRoomStore);
 
     useEffect(envEffect);
@@ -153,7 +148,7 @@ class _ApplicationState extends State<Application> {
     useEffect(providerEffect);
     useEffect(wsEffect);
     useEffect(prefetchRoomsEffect);
-    useEffect(splashWaiterEffect);
+
     useEffect(thirdPartyAccountEffect);
     useEffect(signInEffect);
     useEffect(pickSignUpAvatarEffect);
