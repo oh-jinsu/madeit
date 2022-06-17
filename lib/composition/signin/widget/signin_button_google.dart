@@ -14,7 +14,7 @@ class SignInButtonGoogle extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         width: double.infinity,
-        height: 48.0,
+        height: 44.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: const Color(0xff4285f4),
@@ -25,8 +25,8 @@ class SignInButtonGoogle extends StatelessWidget {
               top: 2.0,
               left: 2.0,
               child: SizedBox(
-                width: 44.0,
-                height: 44.0,
+                width: 40.0,
+                height: 40.0,
                 child: Ink(
                   decoration: BoxDecoration(
                     color: Colors.white,

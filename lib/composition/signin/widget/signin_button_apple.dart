@@ -14,7 +14,7 @@ class SignInButtonApple extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         width: double.infinity,
-        height: 48.0,
+        height: 44.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: Colors.black,
@@ -22,8 +22,8 @@ class SignInButtonApple extends StatelessWidget {
         child: Stack(
           children: const [
             SizedBox(
-              width: 48.0,
-              height: 48.0,
+              width: 44.0,
+              height: 44.0,
               child: Icon(
                 Icons.apple,
                 color: Colors.white,

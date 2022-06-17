@@ -14,7 +14,7 @@ class SignInButtonKakao extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         width: double.infinity,
-        height: 48.0,
+        height: 44.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: const Color(0xfffee500),
@@ -22,8 +22,8 @@ class SignInButtonKakao extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
-              width: 48.0,
-              height: 48.0,
+              width: 44.0,
+              height: 44.0,
               child: Center(
                 child: SizedBox(
                   width: 21.0,
