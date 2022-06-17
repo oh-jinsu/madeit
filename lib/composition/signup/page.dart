@@ -74,7 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
           centerTitle: true,
         ),
         body: StreamBuilder(
-          stream: signUpFormStore,
+          stream: signUpFormStore.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data as SignUpFormModel;

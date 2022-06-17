@@ -64,7 +64,7 @@ class SignInPage extends StatelessWidget {
               ),
               const Spacer(),
               StreamBuilder<bool?>(
-                stream: signInFormStore,
+                stream: signInFormStore.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final data = snapshot.data;

@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
           vertical: 16.0,
         ),
         child: StreamBuilder<UserModel?>(
-            stream: userStore,
+            stream: userStore.stream,
             builder: (context, snapshot) {
               return Column(
                 children: [

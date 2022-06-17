@@ -13,7 +13,7 @@ class RoomExplorationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: listOfRoomStore,
+        stream: listOfRoomStore.stream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final data = snapshot.data as ListOf<RoomModel>;

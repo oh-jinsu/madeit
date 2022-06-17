@@ -142,10 +142,10 @@ class _ApplicationState extends State<Application> {
   void initState() {
     initializeChannel();
 
-    touchStore(userStore);
-    touchStore(signInFormStore);
-    touchStore(signUpFormStore);
-    touchStore(listOfRoomStore);
+    useStore(userStore);
+    useStore(signInFormStore);
+    useStore(signUpFormStore);
+    useStore(listOfRoomStore);
 
     useEffect(envEffect);
     useEffect(firebaseEffect);
