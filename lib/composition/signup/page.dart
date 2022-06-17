@@ -1,20 +1,18 @@
 import 'dart:async';
 
+import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
+import 'package:madeit/application/events/sign_in_finished.dart';
 import 'package:madeit/application/events/sign_up_avatar_requested.dart';
-import 'package:madeit/application/events/sign_up_finished.dart';
 import 'package:madeit/application/events/sign_up_name_changed.dart';
 import 'package:madeit/application/events/sign_up_privacy_agreement_changed.dart';
 import 'package:madeit/application/events/sign_up_service_agreement_changed.dart';
 import 'package:madeit/application/events/sign_up_submitted.dart';
-import 'package:madeit/application/reducers/sign_up_form.dart';
+import 'package:madeit/application/stores/sign_up_form.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 import 'package:madeit/composition/signup/widgets/radio_box.dart';
 import 'package:madeit/composition/signup/widgets/row.dart';
-import 'package:madeit/core/builder.dart';
-import 'package:madeit/core/channel.dart';
-import 'package:madeit/core/manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -35,7 +33,7 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> with SubscriptionManagerMixin {
+class _SignUpPageState extends State<SignUpPage> with AntennaManager {
   final subscriptions = <StreamSubscription>[];
 
   final nameFocusNode = FocusNode();
@@ -44,8 +42,10 @@ class _SignUpPageState extends State<SignUpPage> with SubscriptionManagerMixin {
   void initState() {
     open(signUpFormStore);
 
-    on((SignUpFinished event) {
-      Navigator.of(context).pop();
+    on((event) {
+      if (event is SignInFinished) {
+        Navigator.of(context).pop();
+      }
     });
 
     if (widget.name != null) {

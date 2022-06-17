@@ -1,9 +1,9 @@
+import 'package:antenna/builder.dart';
 import 'package:flutter/material.dart';
-import 'package:madeit/application/reducers/list_of_room.dart';
+import 'package:madeit/application/stores/list_of_room.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/navigation_bar.dart';
-import 'package:madeit/core/builder.dart';
 
 class RoomExplorationPage extends StatelessWidget {
   const RoomExplorationPage({Key? key}) : super(key: key);

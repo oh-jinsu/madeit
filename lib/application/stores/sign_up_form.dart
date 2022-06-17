@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:antenna/antenna.dart';
 import 'package:madeit/application/events/sign_up_avatar_found.dart';
 import 'package:madeit/application/events/sign_up_canceled.dart';
 import 'package:madeit/application/events/sign_up_finished.dart';
@@ -9,33 +10,8 @@ import 'package:madeit/application/events/sign_up_privacy_agreement_changed.dart
 import 'package:madeit/application/events/sign_up_service_agreement_changed.dart';
 import 'package:madeit/application/models/option.dart';
 import 'package:madeit/application/models/sign_up_form.dart';
-import 'package:madeit/core/store.dart';
 
-bool _isValid({
-  required String name,
-  required bool isServiceAgreed,
-  required bool isPrivacyAgreed,
-}) {
-  if (name.length < 2) {
-    return false;
-  }
-
-  if (name.length > 8) {
-    return false;
-  }
-
-  if (!isServiceAgreed) {
-    return false;
-  }
-
-  if (!isPrivacyAgreed) {
-    return false;
-  }
-
-  return true;
-}
-
-SignUpFormModel signUpFormReducer({
+final signUpFormStore = createStore<SignUpFormModel>(({
   SignUpFormModel state = const SignUpFormModel(
     avatar: Option(null),
     name: "",
@@ -103,6 +79,28 @@ SignUpFormModel signUpFormReducer({
   }
 
   return state;
-}
+});
 
-final signUpFormStore = createStore(signUpFormReducer);
+bool _isValid({
+  required String name,
+  required bool isServiceAgreed,
+  required bool isPrivacyAgreed,
+}) {
+  if (name.length < 2) {
+    return false;
+  }
+
+  if (name.length > 8) {
+    return false;
+  }
+
+  if (!isServiceAgreed) {
+    return false;
+  }
+
+  if (!isPrivacyAgreed) {
+    return false;
+  }
+
+  return true;
+}

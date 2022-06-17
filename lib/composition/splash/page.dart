@@ -1,6 +1,6 @@
+import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:madeit/application/events/list_of_room_found.dart';
-import 'package:madeit/core/manager.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -9,11 +9,13 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SubscriptionManagerMixin {
+class _SplashPageState extends State<SplashPage> with AntennaManager {
   @override
   void initState() {
-    on((ListOfRoomFound event) {
-      Navigator.of(context).pushReplacementNamed("/home");
+    on((event) {
+      if (event is ListOfRoomFound) {
+        Navigator.of(context).pushReplacementNamed("/home");
+      }
     });
 
     super.initState();

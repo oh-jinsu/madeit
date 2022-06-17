@@ -1,5 +1,6 @@
+import 'package:antenna/builder.dart';
 import 'package:flutter/material.dart';
-import 'package:madeit/application/reducers/user.dart';
+import 'package:madeit/application/stores/user.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
@@ -7,7 +8,6 @@ import 'package:madeit/composition/common/widgets/navigation_bar.dart';
 import 'package:madeit/composition/common/widgets/record_group.dart';
 import 'package:madeit/composition/profile/widget/group.dart';
 import 'package:madeit/composition/profile/widget/menu.dart';
-import 'package:madeit/core/builder.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);

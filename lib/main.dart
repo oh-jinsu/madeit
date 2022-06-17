@@ -1,3 +1,4 @@
+import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/application/effects/create_user.dart';
@@ -12,9 +13,9 @@ import 'package:madeit/application/effects/signin.dart';
 import 'package:madeit/application/effects/third_party_account.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
-import 'package:madeit/application/reducers/list_of_room.dart';
-import 'package:madeit/application/reducers/sign_in_form.dart';
-import 'package:madeit/application/reducers/user.dart';
+import 'package:madeit/application/stores/list_of_room.dart';
+import 'package:madeit/application/stores/sign_in_form.dart';
+import 'package:madeit/application/stores/user.dart';
 import 'package:madeit/composition/my_room_list/page.dart';
 import 'package:madeit/composition/participant/page.dart';
 import 'package:madeit/composition/profile/page.dart';
@@ -26,8 +27,6 @@ import 'package:madeit/composition/room_preview/page.dart';
 import 'package:madeit/composition/signin/page.dart';
 import 'package:madeit/composition/signup/page.dart';
 import 'package:madeit/composition/splash/page.dart';
-import 'package:madeit/core/channel.dart';
-import 'package:madeit/core/manager.dart';
 
 void main() => runApp(const Application());
 
@@ -134,8 +133,7 @@ class Application extends StatefulWidget {
   State<Application> createState() => _ApplicationState();
 }
 
-class _ApplicationState extends State<Application>
-    with SubscriptionManagerMixin {
+class _ApplicationState extends State<Application> with AntennaManager {
   @override
   void initState() {
     open(userStore);

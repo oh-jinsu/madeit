@@ -1,11 +1,9 @@
+import 'package:antenna/antenna.dart';
 import 'package:madeit/application/models/user.dart';
-import 'package:madeit/core/store.dart';
 
-UserModel? userReducer({
+final userStore = createStore<UserModel?>(({
   UserModel? state,
   dynamic event,
 }) {
   return state;
-}
-
-final userStore = createStore(userReducer);
+});

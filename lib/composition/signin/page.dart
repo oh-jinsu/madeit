@@ -1,13 +1,12 @@
 import 'dart:io';
 
+import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:madeit/application/events/third_party_account_requested.dart';
-import 'package:madeit/application/reducers/sign_in_form.dart';
+import 'package:madeit/application/stores/sign_in_form.dart';
 import 'package:madeit/composition/signin/widget/signin_button_apple.dart';
 import 'package:madeit/composition/signin/widget/signin_button_google.dart';
 import 'package:madeit/composition/signin/widget/signin_button_kakao.dart';
-import 'package:madeit/core/builder.dart';
-import 'package:madeit/core/channel.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
