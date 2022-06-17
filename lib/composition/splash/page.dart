@@ -12,7 +12,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> with SubscriptionManagerMixin {
   @override
   void initState() {
-    useEffect((ListOfRoomFound event) {
+    on((ListOfRoomFound event) {
       Navigator.of(context).pushReplacementNamed("/home");
     });
 

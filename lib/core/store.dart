@@ -5,7 +5,7 @@ import 'package:madeit/core/reducer.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class Store<T> {
-  ValueStream<T?> get stream;
+  Stream<T?> get stream;
 
   void _initialize();
 
@@ -18,7 +18,7 @@ class _Store<T> implements Store<T> {
   final subject = BehaviorSubject<T?>();
 
   @override
-  ValueStream<T?> get stream => subject;
+  Stream<T?> get stream => subject;
 
   _Store(this.reducer);
 

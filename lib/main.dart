@@ -138,22 +138,22 @@ class _ApplicationState extends State<Application>
     with SubscriptionManagerMixin {
   @override
   void initState() {
-    useStore(userStore);
-    useStore(signInFormStore);
-    useStore(listOfRoomStore);
+    open(userStore);
+    open(signInFormStore);
+    open(listOfRoomStore);
 
-    useEffect(envEffect);
-    useEffect(firebaseEffect);
-    useEffect(repositoryEffect);
-    useEffect(providerEffect);
-    useEffect(wsEffect);
-    useEffect(prefetchRoomsEffect);
+    on(envEffect);
+    on(firebaseEffect);
+    on(repositoryEffect);
+    on(providerEffect);
+    on(wsEffect);
+    on(prefetchRoomsEffect);
 
-    useEffect(thirdPartyAccountEffect);
-    useEffect(signInEffect);
-    useEffect(pickSignUpAvatarEffect);
-    useEffect(signUp);
-    useEffect(createUser);
+    on(thirdPartyAccountEffect);
+    on(signInEffect);
+    on(pickSignUpAvatarEffect);
+    on(signUp);
+    on(createUser);
 
     dispatch(const AppStarted());
 

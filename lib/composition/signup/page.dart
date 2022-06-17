@@ -42,9 +42,9 @@ class _SignUpPageState extends State<SignUpPage> with SubscriptionManagerMixin {
 
   @override
   void initState() {
-    useStore(signUpFormStore);
+    open(signUpFormStore);
 
-    useEffect((SignUpFinished event) {
+    on((SignUpFinished event) {
       Navigator.of(context).pop();
     });
 
@@ -73,243 +73,232 @@ class _SignUpPageState extends State<SignUpPage> with SubscriptionManagerMixin {
           title: const Text("회원가입"),
           centerTitle: true,
         ),
-        body: StreamBuilder(
-          stream: signUpFormStore.stream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final data = snapshot.data as SignUpFormModel;
-
-              return Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 24.0),
-                          Center(
-                            child: GestureDetector(
-                              onTap: () =>
-                                  dispatch(const SignUpAvatarRequested()),
-                              child: Stack(
-                                children: [
-                                  Avatar(
-                                    image: data.avatar.value != null
-                                        ? FileImage(data.avatar.value!)
-                                        : null,
-                                    radius: 40.0,
-                                  ),
-                                  Positioned.fill(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(40.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            width: double.infinity,
-                                            height: 16.0,
-                                            color: Colors.black,
-                                            child: const Center(
-                                              child: Text(
-                                                "편집",
-                                                style: TextStyle(
-                                                  fontSize: 11.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
+        body: watch(signUpFormStore)(
+          (value) => Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 24.0),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => dispatch(const SignUpAvatarRequested()),
+                          child: Stack(
+                            children: [
+                              Avatar(
+                                image: value.avatar.value != null
+                                    ? FileImage(value.avatar.value!)
+                                    : null,
+                                radius: 40.0,
+                              ),
+                              Positioned.fill(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(40.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        width: double.infinity,
+                                        height: 16.0,
+                                        color: Colors.black,
+                                        child: const Center(
+                                          child: Text(
+                                            "편집",
+                                            style: TextStyle(
+                                              fontSize: 11.0,
+                                              color: Colors.white,
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20.0, bottom: 12.0),
-                            child: Text(
-                              "필수",
-                              style: CaptionTextStyle(),
-                            ),
-                          ),
-                          const Divider(),
-                          SignUpRow(
-                            preffix: Icon(
-                              Icons.person,
-                              color: Colors.grey[400],
-                            ),
-                            body: TextFormField(
-                              focusNode: nameFocusNode,
-                              onChanged: (value) => dispatch(
-                                SignUpNameChanged(value),
-                              ),
-                              autofocus: widget.name == null,
-                              initialValue: widget.name,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                              ),
-                              decoration: const InputDecoration(
-                                hintText: "이름",
-                                isDense: true,
-                                contentPadding: EdgeInsets.all(0.0),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          const Divider(),
-                          if (data.nameMessage.value != null)
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 4.0,
-                                left: 16.0,
-                              ),
-                              child: Text(
-                                data.nameMessage.value!,
-                                style: CaptionTextStyle(
-                                    color: Theme.of(context).colorScheme.error),
-                              ),
-                            ),
-                          const SizedBox(height: 32.0),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20.0, bottom: 12.0),
-                            child: Text(
-                              "동의",
-                              style: CaptionTextStyle(),
-                            ),
-                          ),
-                          const Divider(),
-                          SignUpRow(
-                            onTap: () {
-                              if (data.isPending) {
-                                return;
-                              }
-
-                              dispatch(
-                                SignUpServiceAgreementChanged(
-                                  !data.isServiceAgreed,
+                                    ],
+                                  ),
                                 ),
-                              );
-                            },
-                            preffix: SignUpRadioBox(
-                              enabled: data.isServiceAgreed,
-                            ),
-                            body: const Text(
-                              "서비스이용약관",
-                              style: BodyTextStyle(),
-                            ),
-                            suffix: InkWell(
-                              onTap: () {
-                                final url = Uri.parse(
-                                  "https://madeit.develife.kr/service",
-                                );
-
-                                launchUrl(url);
-                              },
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Icon(
-                                Icons.chevron_right,
-                                color: Colors.grey[400],
-                              ),
-                            ),
+                              )
+                            ],
                           ),
-                          const Divider(),
-                          SignUpRow(
-                            onTap: () {
-                              if (data.isPending) {
-                                return;
-                              }
-
-                              dispatch(
-                                SignUpPrivacyAgreementChanged(
-                                  !data.isPrivacyAgreed,
-                                ),
-                              );
-                            },
-                            preffix: SignUpRadioBox(
-                              enabled: data.isPrivacyAgreed,
-                            ),
-                            body: const Text(
-                              "개인정보처리방침",
-                              style: BodyTextStyle(),
-                            ),
-                            suffix: InkWell(
-                              onTap: () {
-                                final url = Uri.parse(
-                                  "https://madeit.develife.kr/privacy",
-                                );
-
-                                launchUrl(url);
-                              },
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Icon(
-                                Icons.chevron_right,
-                                color: Colors.grey[400],
-                              ),
-                            ),
-                          ),
-                          const Divider(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 4.0,
-                      horizontal: 20.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                        top: BorderSide(
-                          color: Colors.grey[200]!,
                         ),
                       ),
-                    ),
-                    child: SafeArea(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (data.isPending || !data.isValid) {
+                      const SizedBox(height: 20.0),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20.0, bottom: 12.0),
+                        child: Text(
+                          "필수",
+                          style: CaptionTextStyle(),
+                        ),
+                      ),
+                      const Divider(),
+                      SignUpRow(
+                        preffix: Icon(
+                          Icons.person,
+                          color: Colors.grey[400],
+                        ),
+                        body: TextFormField(
+                          focusNode: nameFocusNode,
+                          onChanged: (value) => dispatch(
+                            SignUpNameChanged(value),
+                          ),
+                          autofocus: widget.name == null,
+                          initialValue: widget.name,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                          ),
+                          decoration: const InputDecoration(
+                            hintText: "이름",
+                            isDense: true,
+                            contentPadding: EdgeInsets.all(0.0),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      if (value.nameMessage.value != null)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 4.0,
+                            left: 16.0,
+                          ),
+                          child: Text(
+                            value.nameMessage.value!,
+                            style: CaptionTextStyle(
+                                color: Theme.of(context).colorScheme.error),
+                          ),
+                        ),
+                      const SizedBox(height: 32.0),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20.0, bottom: 12.0),
+                        child: Text(
+                          "동의",
+                          style: CaptionTextStyle(),
+                        ),
+                      ),
+                      const Divider(),
+                      SignUpRow(
+                        onTap: () {
+                          if (value.isPending) {
                             return;
                           }
 
                           dispatch(
-                            SignUpSubmitted(
-                              provider: widget.provider,
-                              idToken: widget.idToken,
-                              avatar: data.avatar.value,
-                              name: data.name,
+                            SignUpServiceAgreementChanged(
+                              !value.isServiceAgreed,
                             ),
                           );
                         },
-                        style: ElevatedButton.styleFrom(
-                          primary: data.isValid ? null : Colors.grey[400],
-                          minimumSize: const Size.fromHeight(44.0),
+                        preffix: SignUpRadioBox(
+                          enabled: value.isServiceAgreed,
                         ),
-                        child: data.isPending
-                            ? const SizedBox(
-                                width: 16.0,
-                                height: 16.0,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const Text(
-                                "가입하기",
-                              ),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            }
+                        body: const Text(
+                          "서비스이용약관",
+                          style: BodyTextStyle(),
+                        ),
+                        suffix: InkWell(
+                          onTap: () {
+                            final url = Uri.parse(
+                              "https://madeit.develife.kr/service",
+                            );
 
-            return const SizedBox();
-          },
+                            launchUrl(url);
+                          },
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Icon(
+                            Icons.chevron_right,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      SignUpRow(
+                        onTap: () {
+                          if (value.isPending) {
+                            return;
+                          }
+
+                          dispatch(
+                            SignUpPrivacyAgreementChanged(
+                              !value.isPrivacyAgreed,
+                            ),
+                          );
+                        },
+                        preffix: SignUpRadioBox(
+                          enabled: value.isPrivacyAgreed,
+                        ),
+                        body: const Text(
+                          "개인정보처리방침",
+                          style: BodyTextStyle(),
+                        ),
+                        suffix: InkWell(
+                          onTap: () {
+                            final url = Uri.parse(
+                              "https://madeit.develife.kr/privacy",
+                            );
+
+                            launchUrl(url);
+                          },
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Icon(
+                            Icons.chevron_right,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4.0,
+                  horizontal: 20.0,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    top: BorderSide(
+                      color: Colors.grey[200]!,
+                    ),
+                  ),
+                ),
+                child: SafeArea(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (value.isPending || !value.isValid) {
+                        return;
+                      }
+
+                      dispatch(
+                        SignUpSubmitted(
+                          provider: widget.provider,
+                          idToken: widget.idToken,
+                          avatar: value.avatar.value,
+                          name: value.name,
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: value.isValid ? null : Colors.grey[400],
+                      minimumSize: const Size.fromHeight(44.0),
+                    ),
+                    child: value.isPending
+                        ? const SizedBox(
+                            width: 16.0,
+                            height: 16.0,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text(
+                            "가입하기",
+                          ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
