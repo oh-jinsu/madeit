@@ -1,22 +1,14 @@
 import 'package:antenna/antenna.dart';
+import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/sign_up_canceled.dart';
 import 'package:madeit/application/events/sign_up_finished.dart';
 import 'package:madeit/application/events/user_creation_requested.dart';
 import 'package:madeit/implementation/providers/http_client/client.dart';
 import 'package:madeit/implementation/providers/http_client/response.dart';
-import 'package:madeit/implementation/repositories/auth.dart';
-import 'package:madeit/utilities/dependency.dart';
 
 final createUser = when<UserCreationRequested>((event) async {
-  final authRepository = inject<AuthRepository>();
-
-  final accessToken = await authRepository.findAccessToken();
-
-  if (accessToken == null) {
-    return dispatch(const SignUpCanceled());
-  }
-
   final avatarId = await () async {
     final file = event.avatar;
 
@@ -24,9 +16,13 @@ final createUser = when<UserCreationRequested>((event) async {
       return null;
     }
 
-    final client = inject<HttpClient>();
-
-    final response = await client.auth(accessToken).file(file).post("images");
+    final response = await retry(
+      () async => multipart(
+        "images",
+        file: file,
+        headers: await bearerTokenHeader(),
+      ),
+    );
 
     if (response is! SuccessResponse) {
       return null;
@@ -35,12 +31,16 @@ final createUser = when<UserCreationRequested>((event) async {
     return response.body["id"];
   }();
 
-  final client = inject<HttpClient>();
-
-  final response = await client.auth(accessToken).body({
-    "avatar_id": avatarId,
-    "name": event.name,
-  }).post("users/me");
+  final response = await retry(
+    () async => post(
+      "users/me",
+      headers: await bearerTokenHeader(),
+      body: {
+        "avatar_id": avatarId,
+        "name": event.name,
+      },
+    ),
+  );
 
   if (response is! SuccessResponse) {
     return dispatch(const SignUpCanceled());

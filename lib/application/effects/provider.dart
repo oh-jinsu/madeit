@@ -10,7 +10,7 @@ import 'package:madeit/utilities/dependency.dart';
 final providerEffect = when<RepositoryInjected>((event) async {
   single(WsClient(dotenv.get("DOMAIN_HOST_WS")));
 
-  factory(() => HttpClient(dotenv.get("DOMAIN_HOST_HTTP")));
+  host = dotenv.get("DOMAIN_HOST_HTTP");
 
   dispatch(const ProviderInjected());
 });

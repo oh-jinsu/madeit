@@ -4,6 +4,7 @@ import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:madeit/application/events/sign_in_finished.dart';
 import 'package:madeit/application/events/sign_up_avatar_requested.dart';
+import 'package:madeit/application/events/sign_up_finished.dart';
 import 'package:madeit/application/events/sign_up_name_changed.dart';
 import 'package:madeit/application/events/sign_up_privacy_agreement_changed.dart';
 import 'package:madeit/application/events/sign_up_service_agreement_changed.dart';
@@ -43,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> with AntennaManager {
     open(signUpFormStore);
 
     on((event) {
-      if (event is SignInFinished) {
+      if (event is SignUpFinished) {
         Navigator.of(context).pop();
       }
     });

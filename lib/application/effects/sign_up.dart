@@ -1,4 +1,5 @@
 import 'package:antenna/antenna.dart';
+import 'package:madeit/application/effects/functions/protect.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/sign_up_canceled.dart';
 import 'package:madeit/application/events/sign_up_pending.dart';
@@ -12,11 +13,14 @@ import 'package:madeit/utilities/dependency.dart';
 final signUp = when<SignUpSubmitted>((event) async {
   dispatch(const SignUpPending());
 
-  final client = inject<HttpClient>();
-
-  final response = await client.body({
-    "id_token": event.idToken,
-  }).post("auth/signup?provider=${event.provider}");
+  final response = await retry(
+    () => post(
+      "auth/signup?provider=${event.provider}",
+      body: {
+        "id_token": event.idToken,
+      },
+    ),
+  );
 
   if (response is! SuccessResponse) {
     dispatch(const SignUpCanceled());

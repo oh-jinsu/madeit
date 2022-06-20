@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -5,162 +6,151 @@ import 'package:http/http.dart' as http;
 import 'package:madeit/implementation/providers/http_client/response.dart';
 import 'package:madeit/utilities/debug.dart';
 
-typedef _Fetcher = Future<http.Response> Function(
-  Uri uri, {
+String host = "";
+
+Future<Response> get(
+  String endpoint, {
   Map<String, String>? headers,
-});
+}) async {
+  final result = await http.get(toFullUri(endpoint), headers: headers);
 
-class HttpClient {
-  final String _host;
+  return parseBody(result);
+}
 
-  File? _file;
+Future<Response> post(
+  String endpoint, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+}) async {
+  final result = await http.post(
+    toFullUri(endpoint),
+    headers: withContentTypeHeader(headers),
+    body: stringify(body),
+    encoding: encoding,
+  );
 
-  Object? _body;
+  return parseBody(result);
+}
 
-  final Map<String, String> _headers = {};
+Future<Response> put(
+  String endpoint, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+}) async {
+  final result = await http.put(
+    toFullUri(endpoint),
+    headers: withContentTypeHeader(headers),
+    body: stringify(body),
+    encoding: encoding,
+  );
 
-  HttpClient(String host) : _host = host;
+  return parseBody(result);
+}
 
-  Future<Response> get(String endpoint) => _request("GET", endpoint);
+Future<Response> patch(
+  String endpoint, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+}) async {
+  final result = await http.patch(
+    toFullUri(endpoint),
+    headers: withContentTypeHeader(headers),
+    body: stringify(body),
+    encoding: encoding,
+  );
 
-  Future<Response> post(String endpoint) => _request("POST", endpoint);
+  return parseBody(result);
+}
 
-  Future<Response> put(String endpoint) => _request("PUT", endpoint);
+Future<Response> delete(
+  String endpoint, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+}) async {
+  final result = await http.delete(
+    toFullUri(endpoint),
+    headers: withContentTypeHeader(headers),
+    body: stringify(body),
+    encoding: encoding,
+  );
 
-  Future<Response> patch(String endpoint) => _request("PATCH", endpoint);
+  return parseBody(result);
+}
 
-  Future<Response> delete(String endpoint) => _request("DELETE", endpoint);
+Future<Response> multipart(
+  String endpoint, {
+  String method = "POST",
+  required File file,
+  Map<String, String>? headers,
+}) async {
+  final request = http.MultipartRequest(
+    method,
+    toFullUri(endpoint),
+  );
 
-  HttpClient header(String key, String value) {
-    _headers[key] = value;
-
-    return this;
+  if (headers != null) {
+    request.headers.addAll(headers);
   }
 
-  HttpClient auth(String token) {
-    _headers["Authorization"] = "Bearer $token";
+  final mutlipartFile = await http.MultipartFile.fromPath("file", file.path);
 
-    return this;
+  request.files.add(mutlipartFile);
+
+  final streamedResponse = await request.send();
+
+  final result = await http.Response.fromStream(streamedResponse);
+
+  return parseBody(result);
+}
+
+Response parseBody(http.Response response) {
+  show(
+    "Response status ${response.statusCode} from ${response.request?.url} (${response.request?.method})",
+  );
+
+  if (response.statusCode == 204) {
+    return const SuccessResponse(body: null);
   }
 
-  HttpClient body(Object body) {
-    _body = body;
+  final body = jsonDecode(response.body);
 
-    return this;
+  show("Response Body: $body");
+
+  if (response.statusCode ~/ 100 == 2) {
+    return SuccessResponse(body: body);
   }
 
-  HttpClient file(File file) {
-    _file = file;
+  final code = body["code"];
 
-    return this;
+  final message = body["message"];
+
+  return FailureResponse(code: code, message: message);
+}
+
+Uri toFullUri(String endpoint) {
+  final url = "$host/$endpoint";
+
+  show("Request $url");
+
+  return Uri.parse(url);
+}
+
+String? stringify(Object? body) {
+  if (body == null) {
+    return null;
   }
 
-  Future<Response> _request(String method, String endpoint) async {
-    final uri = Uri.parse("$_host/$endpoint");
+  return jsonEncode(body);
+}
 
-    final response = await _load(_file, _body)(method)(uri, headers: _headers);
+Map<String, String> withContentTypeHeader(Map<String, String>? headers) {
+  final result = headers ?? {};
 
-    show("""
-Reponsed status ${response.statusCode} from: $uri ($method)
-body: ${response.body}
-""");
+  result[HttpHeaders.contentTypeHeader] = "application/json;charset=utf-8";
 
-    if (response.statusCode == 204) {
-      return const SuccessResponse(body: null);
-    }
-
-    if (response.statusCode.toString().startsWith("2")) {
-      return SuccessResponse(body: jsonDecode(response.body));
-    }
-
-    final body = jsonDecode(response.body);
-
-    final code = body["code"];
-
-    final message = body["message"];
-
-    return FailureResponse(code: code, message: message);
-  }
-
-  static _Fetcher Function(String method) _load(File? file, Object? body) {
-    if (file != null) {
-      return _requestWithFile(file);
-    } else {
-      return _requestWithPayloadIfExists(body);
-    }
-  }
-
-  static _Fetcher Function(String method) _requestWithPayloadIfExists(
-    Object? body,
-  ) {
-    return (method) {
-      return (uri, {headers}) async {
-        if (method == "GET") {
-          show("""
-Requested $uri ($method)
-headers: $headers
-""");
-
-          return http.get(uri, headers: headers);
-        }
-
-        final fetcher = () {
-          switch (method) {
-            case "PUT":
-              return http.put;
-            case "PATCH":
-              return http.patch;
-            case "DELETE":
-              return http.delete;
-            default:
-              return http.post;
-          }
-        }();
-
-        headers ??= {};
-
-        final contentType = () {
-          switch (method) {
-            default:
-              return "application/json";
-          }
-        }();
-
-        headers["Content-Type"] = "$contentType;charset=utf-8";
-
-        show("""
-Requested $uri ($method)
-headers: $headers
-payload: $body
-""");
-
-        return fetcher(
-          uri,
-          headers: headers,
-          body: body != null ? jsonEncode(body) : null,
-        );
-      };
-    };
-  }
-
-  static _Fetcher Function(String method) _requestWithFile(File file) {
-    return (method) {
-      return (uri, {headers}) async {
-        final request = http.MultipartRequest(method, uri);
-
-        if (headers != null) {
-          request.headers.addAll(headers);
-        }
-
-        final mutlipartFile =
-            await http.MultipartFile.fromPath("file", file.path);
-
-        request.files.add(mutlipartFile);
-
-        final streamedResponse = await request.send();
-
-        return http.Response.fromStream(streamedResponse);
-      };
-    };
-  }
+  return result;
 }
