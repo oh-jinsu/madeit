@@ -49,7 +49,9 @@ class _MyRoomListPageState extends State<MyRoomListPage> with AntennaManager {
             else
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed("/room");
+                  Navigator.of(context).pushNamed("/room", arguments: {
+                    "id": state[i ~/ 2].id,
+                  });
                 },
                 child: Ink(
                   color: Colors.white,

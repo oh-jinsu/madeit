@@ -68,11 +68,22 @@ class ChatBubble extends StatelessWidget {
                     ),
                   ],
                   RichText(
-                    text: const TextSpan(
-                      style: CaptionTextStyle(),
+                    text: TextSpan(
+                      style: const CaptionTextStyle(),
                       children: [
                         TextSpan(
-                          text: "오후 02:30",
+                          text: () {
+                            final hour = dateTime.hour;
+
+                            final minute =
+                                dateTime.minute.toString().padLeft(2, "0");
+
+                            if (hour > 12) {
+                              return "오후 ${hour - 12}:$minute";
+                            }
+
+                            return "오전 $hour:$minute";
+                          }(),
                         ),
                       ],
                     ),

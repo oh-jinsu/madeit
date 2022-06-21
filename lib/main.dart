@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/application/effects/auto_sign_in.dart';
 import 'package:madeit/application/effects/env.dart';
+import 'package:madeit/application/effects/find_list_of_chat.dart';
 import 'package:madeit/application/effects/find_user.dart';
 import 'package:madeit/application/effects/firebase.dart';
 import 'package:madeit/application/effects/pick_sign_up_avatar.dart';
@@ -10,12 +11,14 @@ import 'package:madeit/application/effects/find_my_rooms.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
 import 'package:madeit/application/effects/repository.dart';
+import 'package:madeit/application/effects/send_chat.dart';
 import 'package:madeit/application/effects/sign_out.dart';
 import 'package:madeit/application/effects/sign_up.dart';
 import 'package:madeit/application/effects/sign_in.dart';
 import 'package:madeit/application/effects/third_party_account.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
+import 'package:madeit/application/stores/chat.dart';
 import 'package:madeit/application/stores/list_of_room.dart';
 import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/application/stores/sign_in_form.dart';
@@ -68,7 +71,13 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == "/room") {
-    return MaterialPageRoute(builder: (context) => const RoomPage());
+    final arguments = settings.arguments as Map;
+
+    return MaterialPageRoute(
+      builder: (context) => RoomPage(
+        id: arguments["id"],
+      ),
+    );
   }
 
   if (settings.name == "/room/photolog") {
@@ -150,6 +159,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     open(signOutFormStore);
     open(listOfRoomStore);
     open(myRoomsStore);
+    open(chatStore);
 
     on(envEffect);
     on(firebaseEffect);
@@ -165,6 +175,8 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(signOutEffect);
     on(autoSignInEffect);
     on(findUserEffect);
+    on(sendChatEffect);
+    on(findListOfChatEffect);
 
     dispatch(const AppStarted());
 

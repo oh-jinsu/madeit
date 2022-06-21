@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
-import 'package:madeit/composition/room/widget/chat_bubble.dart';
+import 'package:madeit/composition/room/components/chat_field.dart';
+import 'package:madeit/composition/room/components/list_of_chat.dart';
 
 class RoomPage extends StatefulWidget {
+  final String id;
+
+  const RoomPage({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  @override
+  State<RoomPage> createState() => _RoomPageState();
+}
+
+class _RoomPageState extends State<RoomPage> {
   static const paddingHorizontal = 12.0;
   static const avatarRadius = 20.0;
   static const gapFromAvatar = 8.0;
 
-  const RoomPage({Key? key}) : super(key: key);
+  bool isEditing = false;
+
+  final focusNode = FocusNode();
 
   static double getMaxChatBubbleWidth(BuildContext context) {
     return MediaQuery.of(context).size.width -
@@ -15,15 +31,6 @@ class RoomPage extends StatefulWidget {
         avatarRadius * 2 * 2 -
         gapFromAvatar * 2;
   }
-
-  @override
-  State<RoomPage> createState() => _RoomPageState();
-}
-
-class _RoomPageState extends State<RoomPage> {
-  bool isEditing = false;
-
-  final focusNode = FocusNode();
 
   @override
   void initState() {
@@ -45,6 +52,8 @@ class _RoomPageState extends State<RoomPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = myRoomsStore.state!.firstWhere((e) => e.id == widget.id);
+
     return GestureDetector(
       onTap: () {
         focusNode.unfocus();
@@ -54,9 +63,9 @@ class _RoomPageState extends State<RoomPage> {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "하루에 만 보 걷기 🚶‍♂️",
-                style: TextStyle(
+              Text(
+                state.title,
+                style: const TextStyle(
                   fontSize: 16.0,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -66,27 +75,31 @@ class _RoomPageState extends State<RoomPage> {
                   style: const CaptionTextStyle(),
                   children: [
                     TextSpan(
-                      text: "16명",
+                      text: "${state.participantCount}명",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const TextSpan(
-                      text: " 평균 성공률 ",
+                    TextSpan(
+                      text: " 평균 ${state.performance.label} ",
                     ),
                     TextSpan(
-                      text: "86%",
+                      text: state.performance.value == -1
+                          ? "기록 없음"
+                          : "${state.performance.value}${state.performance.symbol}",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const TextSpan(
-                      text: " 나의 성공률 ",
+                    TextSpan(
+                      text: " 나의 ${state.myPerformance.label} ",
                     ),
                     TextSpan(
-                      text: "93%",
+                      text: state.myPerformance.value == -1
+                          ? "기록 없음"
+                          : "${state.myPerformance.value}${state.myPerformance.symbol}",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -164,59 +177,10 @@ class _RoomPageState extends State<RoomPage> {
               ),
             ),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: RoomPage.paddingHorizontal,
-                  vertical: 16.0,
-                ),
-                reverse: true,
-                children: [
-                  ChatBubble(
-                    isMine: true,
-                    username: "오진수",
-                    message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                    dateTime: DateTime.now(),
-                    maxwidth: RoomPage.getMaxChatBubbleWidth(context),
-                    isContinous: true,
-                  ),
-                  ChatBubble(
-                    isMine: true,
-                    username: "오진수",
-                    message: "안녕하세요 신참입니다",
-                    dateTime: DateTime.now(),
-                    maxwidth: RoomPage.getMaxChatBubbleWidth(context),
-                  ),
-                  const SizedBox(height: 20.0),
-                  for (int i = 0; i < 10 * 2 - 1; i++) ...[
-                    ChatBubble(
-                      isMine: false,
-                      username: "조대훈",
-                      message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                      dateTime: DateTime.now(),
-                      maxwidth: RoomPage.getMaxChatBubbleWidth(context),
-                      isContinous: true,
-                    ),
-                    ChatBubble(
-                      onAvatarTap: () =>
-                          Navigator.of(context).pushNamed("/participant"),
-                      isMine: false,
-                      username: "조대훈",
-                      message: "안녕하세요 여러분 좋은 아침이에요 열심히 참여해 주세요~",
-                      dateTime: DateTime.now(),
-                      maxwidth: RoomPage.getMaxChatBubbleWidth(context),
-                    ),
-                    const SizedBox(height: 20.0)
-                  ],
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "2021년 3월 21일",
-                        style: CaptionTextStyle(),
-                      ),
-                    ],
-                  ),
-                ],
+              child: ListOfChat(
+                roomId: widget.id,
+                paddingHorizontal: paddingHorizontal,
+                maxWidth: getMaxChatBubbleWidth(context),
               ),
             ),
             Container(
@@ -246,56 +210,9 @@ class _RoomPageState extends State<RoomPage> {
                     ),
                     const SizedBox(width: 4.0),
                     Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(2.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[50],
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: Colors.grey[200]!,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 12.0,
-                                ),
-                                child: TextField(
-                                  focusNode: focusNode,
-                                  keyboardType: TextInputType.multiline,
-                                  minLines: 1,
-                                  maxLines: 4,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.all(0.0),
-                                    border: InputBorder.none,
-                                  ),
-                                  onChanged: (v) {},
-                                ),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                visualDensity: VisualDensity.compact,
-                                fixedSize: const Size(32.0, 32.0),
-                                minimumSize: const Size(32.0, 32.0),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.arrow_upward,
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: ChatField(
+                        roomId: widget.id,
+                        focusNode: focusNode,
                       ),
                     ),
                     if (!isEditing) ...[

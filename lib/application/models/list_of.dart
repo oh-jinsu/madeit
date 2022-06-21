@@ -1,8 +1,12 @@
+import 'package:madeit/application/models/option.dart';
+
 class ListOf<T> {
-  final String? next;
+  final bool isPending;
+  final Option<String> next;
   final List<T> items;
 
   const ListOf({
+    required this.isPending,
     required this.next,
     required this.items,
   });
@@ -12,6 +16,22 @@ class ListOf<T> {
 
     final items = (json["items"] as List).map(mapper).toList();
 
-    return ListOf(next: next, items: items);
+    return ListOf(
+      isPending: false,
+      next: Option(next),
+      items: items,
+    );
+  }
+
+  ListOf<T> copy({
+    bool? isPending,
+    Option<String>? next,
+    List<T>? items,
+  }) {
+    return ListOf(
+      isPending: isPending ?? this.isPending,
+      next: next ?? this.next,
+      items: items ?? this.items,
+    );
   }
 }
