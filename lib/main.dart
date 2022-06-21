@@ -9,6 +9,7 @@ import 'package:madeit/application/effects/pick_sign_up_avatar.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
 import 'package:madeit/application/effects/repository.dart';
+import 'package:madeit/application/effects/sign_out.dart';
 import 'package:madeit/application/effects/sign_up.dart';
 import 'package:madeit/application/effects/sign_in.dart';
 import 'package:madeit/application/effects/third_party_account.dart';
@@ -16,6 +17,7 @@ import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/stores/list_of_room.dart';
 import 'package:madeit/application/stores/sign_in_form.dart';
+import 'package:madeit/application/stores/sign_out_form.dart';
 import 'package:madeit/application/stores/user.dart';
 import 'package:madeit/composition/my_room_list/page.dart';
 import 'package:madeit/composition/participant/page.dart';
@@ -139,6 +141,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
   void initState() {
     open(userStore);
     open(signInFormStore);
+    open(signOutFormStore);
     open(listOfRoomStore);
 
     on(envEffect);
@@ -150,7 +153,8 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(thirdPartyAccountEffect);
     on(signInEffect);
     on(pickSignUpAvatarEffect);
-    on(signUp);
+    on(signUpEffect);
+    on(signOutEffect);
     on(autoSignInEffect);
     on(findUserEffect);
 

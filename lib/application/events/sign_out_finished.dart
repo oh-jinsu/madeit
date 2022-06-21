@@ -1,0 +1,3 @@
+class SignOutFinished {
+  const SignOutFinished();
+}

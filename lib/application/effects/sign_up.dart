@@ -11,7 +11,7 @@ import 'package:madeit/implementation/providers/http_client/response.dart';
 import 'package:madeit/implementation/repositories/auth.dart';
 import 'package:madeit/utilities/dependency.dart';
 
-final signUp = when<SignUpSubmitted>((event) async {
+final signUpEffect = when<SignUpSubmitted>((event) async {
   dispatch(const SignUpPending());
 
   final response = await retry(
@@ -25,8 +25,7 @@ final signUp = when<SignUpSubmitted>((event) async {
   );
 
   if (response is! SuccessResponse) {
-    dispatch(const SignUpCanceled());
-    return;
+    return dispatch(const SignUpCanceled());
   }
 
   final authRepository = inject<AuthRepository>();

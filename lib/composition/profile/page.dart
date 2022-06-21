@@ -1,5 +1,7 @@
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
+import 'package:madeit/application/events/sign_out_requested.dart';
+import 'package:madeit/application/stores/sign_out_form.dart';
 import 'package:madeit/application/stores/user.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
 import 'package:madeit/composition/common/properties/domain_image.dart';
@@ -22,6 +24,8 @@ class _ProfilePageState extends State<ProfilePage> with AntennaManager {
   @override
   void initState() {
     sync(userStore);
+
+    sync(signOutFormStore);
 
     super.initState();
   }
@@ -137,13 +141,29 @@ class _ProfilePageState extends State<ProfilePage> with AntennaManager {
               ProfileGroup(
                 children: [
                   ProfileMenu(
-                    showIcon: false,
+                    onTap: () {
+                      if (!signOutFormStore.state) {
+                        return;
+                      }
+
+                      dispatch(const SignOutRequested());
+                    },
+                    showIcon: !signOutFormStore.state,
                     label: Text(
                       "로그아웃",
                       style: BodyTextStyle(
                         color: Theme.of(context).colorScheme.error,
                       ),
                     ),
+                    icon: !signOutFormStore.state
+                        ? const SizedBox(
+                            width: 12.0,
+                            height: 12.0,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                            ),
+                          )
+                        : null,
                   ),
                 ],
               ),

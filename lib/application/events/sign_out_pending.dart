@@ -1,0 +1,3 @@
+class SignOutPending {
+  const SignOutPending();
+}
