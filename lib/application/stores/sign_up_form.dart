@@ -86,11 +86,11 @@ bool _isValid({
   required bool isServiceAgreed,
   required bool isPrivacyAgreed,
 }) {
-  if (name.length < 2) {
+  if (utf8.encode(name).length < 6) {
     return false;
   }
 
-  if (name.length > 8) {
+  if (utf8.encode(name).length > 24) {
     return false;
   }
 

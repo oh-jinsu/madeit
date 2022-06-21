@@ -1,15 +1,15 @@
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:madeit/application/effects/create_user.dart';
 import 'package:madeit/application/effects/env.dart';
+import 'package:madeit/application/effects/find_user.dart';
 import 'package:madeit/application/effects/firebase.dart';
 import 'package:madeit/application/effects/pick_sign_up_avatar.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
 import 'package:madeit/application/effects/repository.dart';
 import 'package:madeit/application/effects/sign_up.dart';
-import 'package:madeit/application/effects/signin.dart';
+import 'package:madeit/application/effects/sign_in.dart';
 import 'package:madeit/application/effects/third_party_account.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
@@ -146,12 +146,11 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(providerEffect);
     on(wsEffect);
     on(prefetchRoomsEffect);
-
     on(thirdPartyAccountEffect);
     on(signInEffect);
     on(pickSignUpAvatarEffect);
     on(signUp);
-    on(createUser);
+    on(findUserEffect);
 
     dispatch(const AppStarted());
 

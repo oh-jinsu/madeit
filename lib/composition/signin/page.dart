@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
-import 'package:madeit/application/events/sign_in_finished.dart';
 import 'package:madeit/application/events/third_party_account_requested.dart';
+import 'package:madeit/application/events/user_found.dart';
 import 'package:madeit/application/stores/sign_in_form.dart';
 import 'package:madeit/composition/signin/widget/signin_button_apple.dart';
 import 'package:madeit/composition/signin/widget/signin_button_google.dart';
@@ -20,7 +20,7 @@ class _SignInPageState extends State<SignInPage> with AntennaManager {
   @override
   void initState() {
     on((event) {
-      if (event is SignInFinished) {
+      if (event is UserFound) {
         Navigator.of(context).pop();
       }
     });

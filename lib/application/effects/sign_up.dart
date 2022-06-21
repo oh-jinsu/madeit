@@ -1,10 +1,11 @@
 import 'package:antenna/antenna.dart';
 import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/sign_up_canceled.dart';
+import 'package:madeit/application/events/sign_up_finished.dart';
 import 'package:madeit/application/events/sign_up_pending.dart';
 import 'package:madeit/application/events/sign_up_submitted.dart';
-import 'package:madeit/application/events/user_creation_requested.dart';
 import 'package:madeit/implementation/providers/http_client/client.dart';
 import 'package:madeit/implementation/providers/http_client/response.dart';
 import 'package:madeit/implementation/repositories/auth.dart';
@@ -18,6 +19,7 @@ final signUp = when<SignUpSubmitted>((event) async {
       "auth/signup?provider=${event.provider}",
       body: {
         "id_token": event.idToken,
+        "name": event.name,
       },
     ),
   );
@@ -37,8 +39,35 @@ final signUp = when<SignUpSubmitted>((event) async {
 
   await authRepository.saveRefreshToken(refreshToken);
 
-  dispatch(UserCreationRequested(
-    avatar: event.avatar,
-    name: event.name,
-  ));
+  final avatar = event.avatar;
+
+  if (avatar != null) {
+    final response = await retry(
+      () async => multipart(
+        "images",
+        file: avatar,
+        headers: await bearerTokenHeader(),
+      ),
+    );
+
+    if (response is SuccessResponse) {
+      final avatarId = response.body["id"];
+
+      await retry(
+        () async => patch(
+          "users/me",
+          body: [
+            {
+              "op": "replace",
+              "path": "/avatar_id",
+              "value": avatarId,
+            },
+          ],
+          headers: await bearerTokenHeader(),
+        ),
+      );
+    }
+  }
+
+  dispatch(const SignUpFinished());
 });

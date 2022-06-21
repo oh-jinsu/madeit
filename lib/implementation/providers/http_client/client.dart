@@ -144,7 +144,11 @@ String? stringify(Object? body) {
     return null;
   }
 
-  return jsonEncode(body);
+  final result = jsonEncode(body);
+
+  show(result);
+
+  return result;
 }
 
 Map<String, String> withContentTypeHeader(Map<String, String>? headers) {

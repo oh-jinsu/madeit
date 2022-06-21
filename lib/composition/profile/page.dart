@@ -2,12 +2,14 @@ import 'package:antenna/builder.dart';
 import 'package:flutter/material.dart';
 import 'package:madeit/application/stores/user.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
+import 'package:madeit/composition/common/properties/domain_image.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 import 'package:madeit/composition/common/widgets/navigation_bar.dart';
 import 'package:madeit/composition/common/widgets/record_group.dart';
 import 'package:madeit/composition/profile/widget/group.dart';
 import 'package:madeit/composition/profile/widget/menu.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -47,9 +49,13 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 16.0),
               ] else ...[
                 const SizedBox(height: 8.0),
-                const Center(
-                  child: Avatar(radius: 40.0),
-                ),
+                Center(
+                    child: Avatar(
+                  radius: 40.0,
+                  image: value.avatarId.value != null
+                      ? DomainImage.fromNetwork(value.avatarId.value!)
+                      : null,
+                )),
                 const SizedBox(height: 12.0),
                 const Text(
                   "오진수",
@@ -78,22 +84,37 @@ class ProfilePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16.0),
               ],
-              const ProfileGroup(
+              ProfileGroup(
                 children: [
                   ProfileMenu(
-                    label: Text(
+                    onTap: () {
+                      final url = Uri.parse(
+                        "https://madeit.develife.kr/service",
+                      );
+
+                      launchUrl(url);
+                    },
+                    label: const Text(
                       "서비스이용약관",
                       style: BodyTextStyle(),
                     ),
                   ),
                   ProfileMenu(
-                    label: Text(
+                    onTap: () {
+                      final url = Uri.parse(
+                        "https://madeit.develife.kr/privacy",
+                      );
+
+                      launchUrl(url);
+                    },
+                    label: const Text(
                       "개인정보처리방침",
                       style: BodyTextStyle(),
                     ),
                   ),
                   ProfileMenu(
-                    label: Text(
+                    onTap: () {},
+                    label: const Text(
                       "지원 및 문의",
                       style: BodyTextStyle(),
                     ),

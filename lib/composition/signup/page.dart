@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
-import 'package:madeit/application/events/sign_in_finished.dart';
 import 'package:madeit/application/events/sign_up_avatar_requested.dart';
 import 'package:madeit/application/events/sign_up_finished.dart';
 import 'package:madeit/application/events/sign_up_name_changed.dart';
 import 'package:madeit/application/events/sign_up_privacy_agreement_changed.dart';
 import 'package:madeit/application/events/sign_up_service_agreement_changed.dart';
 import 'package:madeit/application/events/sign_up_submitted.dart';
+import 'package:madeit/application/events/user_found.dart';
 import 'package:madeit/application/stores/sign_up_form.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
@@ -44,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> with AntennaManager {
     open(signUpFormStore);
 
     on((event) {
-      if (event is SignUpFinished) {
+      if (event is UserFound) {
         Navigator.of(context).pop();
       }
     });
