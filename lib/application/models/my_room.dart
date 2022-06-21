@@ -1,3 +1,5 @@
+import 'package:madeit/application/models/chat/chat.dart';
+import 'package:madeit/application/models/option.dart';
 import 'package:madeit/application/models/performance.dart';
 import 'package:madeit/application/models/user.dart';
 
@@ -10,6 +12,7 @@ class MyRoomModel {
   final PerformanceModel myPerformance;
   final int maxParticipant;
   final int participantCount;
+  final Option<ChatModel> lastChat;
   final DateTime createdAt;
 
   const MyRoomModel({
@@ -21,6 +24,7 @@ class MyRoomModel {
     required this.myPerformance,
     required this.maxParticipant,
     required this.participantCount,
+    required this.lastChat,
     required this.createdAt,
   });
 
@@ -34,6 +38,11 @@ class MyRoomModel {
       myPerformance: PerformanceModel.fromjson(json["performance"]),
       maxParticipant: json["max_participant"],
       participantCount: json["participant_count"],
+      lastChat: Option(
+        json["last_chat"] != null
+            ? ChatModel.fromjson(json["last_chat"])
+            : null,
+      ),
       createdAt: DateTime.parse(json["created_at"]),
     );
   }
@@ -47,6 +56,7 @@ class MyRoomModel {
     PerformanceModel? myPerformance,
     int? maxParticipant,
     int? participantCount,
+    Option<ChatModel>? lastChat,
     DateTime? createdAt,
   }) {
     return MyRoomModel(
@@ -58,6 +68,7 @@ class MyRoomModel {
       myPerformance: myPerformance ?? this.myPerformance,
       maxParticipant: maxParticipant ?? this.maxParticipant,
       participantCount: participantCount ?? this.participantCount,
+      lastChat: lastChat ?? this.lastChat,
       createdAt: createdAt ?? this.createdAt,
     );
   }
