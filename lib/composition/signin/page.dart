@@ -80,48 +80,46 @@ class _SignInPageState extends State<SignInPage> with AntennaManager {
                 ),
               ),
               const Spacer(),
-              watch(signInFormStore)(
-                (value) => Column(
-                  children: [
-                    if (Platform.isIOS) ...[
-                      SignInButtonApple(
-                        onTap: () {
-                          if (value != true) {
-                            return;
-                          }
-
-                          dispatch(
-                            const ThirdPartyAccountRequested("apple"),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 12.0),
-                    ],
-                    SignInButtonGoogle(
+              Column(
+                children: [
+                  if (Platform.isIOS) ...[
+                    SignInButtonApple(
                       onTap: () {
-                        if (value != true) {
+                        if (!signInFormStore.state) {
                           return;
                         }
 
                         dispatch(
-                          const ThirdPartyAccountRequested("google"),
+                          const ThirdPartyAccountRequested("apple"),
                         );
                       },
                     ),
                     const SizedBox(height: 12.0),
-                    SignInButtonKakao(
-                      onTap: () {
-                        if (value != true) {
-                          return;
-                        }
-
-                        dispatch(
-                          const ThirdPartyAccountRequested("kakao"),
-                        );
-                      },
-                    ),
                   ],
-                ),
+                  SignInButtonGoogle(
+                    onTap: () {
+                      if (!signInFormStore.state) {
+                        return;
+                      }
+
+                      dispatch(
+                        const ThirdPartyAccountRequested("google"),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 12.0),
+                  SignInButtonKakao(
+                    onTap: () {
+                      if (!signInFormStore.state) {
+                        return;
+                      }
+
+                      dispatch(
+                        const ThirdPartyAccountRequested("kakao"),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

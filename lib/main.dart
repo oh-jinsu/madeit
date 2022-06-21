@@ -1,6 +1,7 @@
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:madeit/application/effects/auto_sign_in.dart';
 import 'package:madeit/application/effects/env.dart';
 import 'package:madeit/application/effects/find_user.dart';
 import 'package:madeit/application/effects/firebase.dart';
@@ -150,6 +151,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(signInEffect);
     on(pickSignUpAvatarEffect);
     on(signUp);
+    on(autoSignInEffect);
     on(findUserEffect);
 
     dispatch(const AppStarted());
