@@ -6,6 +6,7 @@ import 'package:madeit/application/effects/env.dart';
 import 'package:madeit/application/effects/find_user.dart';
 import 'package:madeit/application/effects/firebase.dart';
 import 'package:madeit/application/effects/pick_sign_up_avatar.dart';
+import 'package:madeit/application/effects/find_my_rooms.dart';
 import 'package:madeit/application/effects/prefetch_rooms.dart';
 import 'package:madeit/application/effects/provider.dart';
 import 'package:madeit/application/effects/repository.dart';
@@ -16,6 +17,7 @@ import 'package:madeit/application/effects/third_party_account.dart';
 import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/stores/list_of_room.dart';
+import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/application/stores/sign_in_form.dart';
 import 'package:madeit/application/stores/sign_out_form.dart';
 import 'package:madeit/application/stores/user.dart';
@@ -58,7 +60,11 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == "/room/preview") {
-    return MaterialPageRoute(builder: (context) => const RoomPreviewPage());
+    final arguments = settings.arguments as Map;
+
+    return MaterialPageRoute(
+      builder: (context) => RoomPreviewPage(id: arguments["id"]),
+    );
   }
 
   if (settings.name == "/room") {
@@ -143,6 +149,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     open(signInFormStore);
     open(signOutFormStore);
     open(listOfRoomStore);
+    open(myRoomsStore);
 
     on(envEffect);
     on(firebaseEffect);
@@ -150,6 +157,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(providerEffect);
     on(wsEffect);
     on(prefetchRoomsEffect);
+    on(findMyRoomsEffect);
     on(thirdPartyAccountEffect);
     on(signInEffect);
     on(pickSignUpAvatarEffect);
