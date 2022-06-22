@@ -1,7 +1,8 @@
 import 'package:madeit/application/models/chat/chat.dart';
+import 'package:madeit/application/models/chat/user.dart';
 import 'package:madeit/application/models/user.dart';
 
-class PhotologChatModel extends ChatModel {
+class PhotologChatModel extends UserChatModel {
   final String message;
   final List<String> imageIds;
   final bool isChecked;
@@ -28,7 +29,6 @@ class PhotologChatModel extends ChatModel {
     );
   }
 
-  @override
   PhotologChatModel copy({
     String? id,
     String? roomId,

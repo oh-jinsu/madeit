@@ -1,39 +1,33 @@
 import 'package:madeit/application/models/chat/chat.dart';
-import 'package:madeit/application/models/chat/user.dart';
-import 'package:madeit/application/models/user.dart';
 
-class MessageChatModel extends UserChatModel {
+class NoticeChatModel extends ChatModel {
   final String message;
 
-  MessageChatModel({
+  NoticeChatModel({
     required super.id,
     required super.roomId,
-    required super.user,
     required super.createdAt,
     required this.message,
   });
 
-  factory MessageChatModel.fromjson(dynamic json) {
-    return MessageChatModel(
+  factory NoticeChatModel.fromjson(dynamic json) {
+    return NoticeChatModel(
       id: json["id"],
       roomId: json["room_id"],
-      user: UserModel.fromJson(json["user"]),
       createdAt: DateTime.parse(json["created_at"]),
       message: json["message"],
     );
   }
 
-  MessageChatModel copy({
+  NoticeChatModel copy({
     String? id,
     String? roomId,
-    UserModel? user,
     DateTime? createdAt,
     String? message,
   }) {
-    return MessageChatModel(
+    return NoticeChatModel(
       id: id ?? this.id,
       roomId: roomId ?? this.roomId,
-      user: user ?? this.user,
       createdAt: createdAt ?? this.createdAt,
       message: message ?? this.message,
     );

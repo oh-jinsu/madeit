@@ -1,23 +1,21 @@
+import 'package:madeit/application/models/chat/chat.dart';
 import 'package:madeit/application/models/chat/image.dart';
 import 'package:madeit/application/models/chat/message.dart';
-import 'package:madeit/application/models/chat/notice.dart';
 import 'package:madeit/application/models/chat/photolog.dart';
+import 'package:madeit/application/models/user.dart';
 
-abstract class ChatModel {
-  final String id;
-  final String roomId;
-  final DateTime createdAt;
+abstract class UserChatModel extends ChatModel {
+  final UserModel user;
 
-  const ChatModel({
-    required this.id,
-    required this.roomId,
-    required this.createdAt,
+  const UserChatModel({
+    required super.id,
+    required super.roomId,
+    required this.user,
+    required super.createdAt,
   });
 
-  factory ChatModel.fromjson(dynamic json) {
+  factory UserChatModel.fromjson(dynamic json) {
     switch (json["type"]) {
-      case "notice":
-        return NoticeChatModel.fromjson(json);
       case "message":
         return MessageChatModel.fromjson(json);
       case "image":

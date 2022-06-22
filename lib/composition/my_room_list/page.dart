@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:madeit/application/events/exit_room_requested.dart';
 import 'package:madeit/application/models/chat/image.dart';
 import 'package:madeit/application/models/chat/message.dart';
+import 'package:madeit/application/models/chat/notice.dart';
 import 'package:madeit/application/models/chat/photolog.dart';
 import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
@@ -185,6 +186,10 @@ class _MyRoomListPageState extends State<MyRoomListPage> with AntennaManager {
                           Text(
                             () {
                               final chat = state[i ~/ 2].lastChat.value!;
+
+                              if (chat is NoticeChatModel) {
+                                return chat.message;
+                              }
 
                               if (chat is MessageChatModel) {
                                 return chat.message;

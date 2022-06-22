@@ -24,7 +24,7 @@ wsEffect(event) async {
       "token": accessToken,
     });
 
-    client.on("chat-created", (data) {
+    client.on("chatted", (data) {
       final model = ChatModel.fromjson(data);
 
       dispatch(Chatted(model));

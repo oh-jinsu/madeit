@@ -1,7 +1,8 @@
 import 'package:madeit/application/models/chat/chat.dart';
+import 'package:madeit/application/models/chat/user.dart';
 import 'package:madeit/application/models/user.dart';
 
-class ImageChatModel extends ChatModel {
+class ImageChatModel extends UserChatModel {
   final List<String> imageIds;
 
   ImageChatModel({
@@ -22,7 +23,6 @@ class ImageChatModel extends ChatModel {
     );
   }
 
-  @override
   ImageChatModel copy({
     String? id,
     String? roomId,
