@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
 import 'package:madeit/application/events/enter_room_finished.dart';
+import 'package:madeit/application/events/exit_room_finished.dart';
 import 'package:madeit/application/events/list_of_room_found.dart';
 import 'package:madeit/application/models/list_of.dart';
 import 'package:madeit/application/models/room.dart';
@@ -21,6 +22,20 @@ final listOfRoomStore = createStore<ListOf<RoomModel>?>(({
 
         return item.copy(
           participantCount: item.participantCount + 1,
+        );
+      }).toList(),
+    );
+  }
+
+  if (event is ExitRoomFinished) {
+    return state?.copy(
+      items: state.items.map((item) {
+        if (item.id != event.roomId) {
+          return item;
+        }
+
+        return item.copy(
+          participantCount: item.participantCount - 1,
         );
       }).toList(),
     );

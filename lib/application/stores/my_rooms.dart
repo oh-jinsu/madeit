@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
 import 'package:madeit/application/events/chatted.dart';
+import 'package:madeit/application/events/exit_room_finished.dart';
 import 'package:madeit/application/events/my_rooms_found.dart';
 import 'package:madeit/application/events/sign_out_finished.dart';
 import 'package:madeit/application/models/my_room.dart';
@@ -15,6 +16,10 @@ final myRoomsStore = createStore<List<MyRoomModel>?>(({
 
   if (event is MyRoomsFound) {
     return event.models;
+  }
+
+  if (event is ExitRoomFinished) {
+    return state?.where((element) => element.id != event.roomId).toList();
   }
 
   if (event is Chatted) {

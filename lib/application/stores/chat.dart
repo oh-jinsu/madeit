@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
 import 'package:madeit/application/events/chatted.dart';
+import 'package:madeit/application/events/exit_room_finished.dart';
 import 'package:madeit/application/events/list_of_chat_found.dart';
 import 'package:madeit/application/events/list_of_chat_pending.dart';
 import 'package:madeit/application/events/my_rooms_found.dart';
@@ -66,6 +67,10 @@ final chatStore = createStore<Map<String, ListOf<ChatModel>>>(({
         ),
       );
     });
+  }
+
+  if (event is ExitRoomFinished) {
+    return Map.from(state)..removeWhere((key, value) => key == event.roomId);
   }
 
   return state;

@@ -1,11 +1,14 @@
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
+import 'package:madeit/application/events/exit_room_requested.dart';
 import 'package:madeit/application/models/chat/image.dart';
 import 'package:madeit/application/models/chat/message.dart';
 import 'package:madeit/application/models/chat/photolog.dart';
 import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
+import 'package:madeit/composition/common/widgets/dialog.dart';
+import 'package:madeit/composition/common/widgets/menu.dart';
 import 'package:madeit/composition/common/widgets/navigation_bar.dart';
 
 class MyRoomListPage extends StatefulWidget {
@@ -16,6 +19,8 @@ class MyRoomListPage extends StatefulWidget {
 }
 
 class _MyRoomListPageState extends State<MyRoomListPage> with AntennaManager {
+  TapDownDetails tapDownDetails = TapDownDetails();
+
   @override
   void initState() {
     sync(myRoomsStore);
@@ -52,6 +57,45 @@ class _MyRoomListPageState extends State<MyRoomListPage> with AntennaManager {
                   Navigator.of(context).pushNamed("/room", arguments: {
                     "id": state[i ~/ 2].id,
                   });
+                },
+                onLongPress: () => showPlatformMenu(
+                  context,
+                  offset: tapDownDetails.globalPosition,
+                  entries: [
+                    PlatformMenuEntry(
+                      onTap: () async {
+                        final result = await showPlatformDialog(
+                          context,
+                          content: Text(
+                            "정말 ${state[i ~/ 2].title}에서 나가실 거에요?",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                return Navigator.of(context).pop(false);
+                              },
+                              child: const Text("아니요"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                return Navigator.of(context).pop(true);
+                              },
+                              child: const Text("네"),
+                            )
+                          ],
+                        );
+
+                        if (result == true) {
+                          dispatch(ExitRoomRequested(state[i ~/ 2].id));
+                        }
+                      },
+                      label: "나갈래요",
+                      icon: Icons.exit_to_app,
+                    )
+                  ],
+                ),
+                onTapDown: (details) {
+                  tapDownDetails = details;
                 },
                 child: Ink(
                   color: Colors.white,
