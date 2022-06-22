@@ -9,12 +9,12 @@ final myRoomsStore = createStore<List<MyRoomModel>?>(({
   List<MyRoomModel>? state,
   dynamic event,
 }) {
-  if (event is MyRoomsFound) {
-    return event.models;
-  }
-
   if (event is SignOutFinished) {
     return null;
+  }
+
+  if (event is MyRoomsFound) {
+    return event.models;
   }
 
   if (event is Chatted) {

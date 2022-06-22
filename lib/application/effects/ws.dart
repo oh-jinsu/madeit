@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:antenna/antenna.dart';
 import 'package:madeit/application/events/chatted.dart';
 import 'package:madeit/application/events/sign_out_finished.dart';

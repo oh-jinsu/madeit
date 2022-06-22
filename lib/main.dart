@@ -2,6 +2,7 @@ import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/application/effects/auto_sign_in.dart';
+import 'package:madeit/application/effects/enter_room.dart';
 import 'package:madeit/application/effects/env.dart';
 import 'package:madeit/application/effects/find_list_of_chat.dart';
 import 'package:madeit/application/effects/find_user.dart';
@@ -177,6 +178,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(findUserEffect);
     on(sendChatEffect);
     on(findListOfChatEffect);
+    on(enterRoomEffect);
 
     dispatch(const AppStarted());
 

@@ -1,7 +1,7 @@
-class ListOfChatPending {
+class EnterRoomFinished {
   final String roomId;
 
-  const ListOfChatPending({
+  const EnterRoomFinished({
     required this.roomId,
   });
 }

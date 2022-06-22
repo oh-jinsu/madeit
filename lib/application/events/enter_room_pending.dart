@@ -1,0 +1,3 @@
+class EnterRoomPending {
+  const EnterRoomPending();
+}

@@ -1,10 +1,14 @@
+import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
+import 'package:madeit/application/events/enter_room_requested.dart';
+import 'package:madeit/application/events/my_rooms_found.dart';
+import 'package:madeit/application/stores/enter_room_form.dart';
 import 'package:madeit/application/stores/list_of_room.dart';
 import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/photolog.dart';
 
-class RoomPreviewPage extends StatelessWidget {
+class RoomPreviewPage extends StatefulWidget {
   final String id;
 
   static const paddingLeft = 16.0;
@@ -18,9 +22,32 @@ class RoomPreviewPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<RoomPreviewPage> createState() => _RoomPreviewPageState();
+}
+
+class _RoomPreviewPageState extends State<RoomPreviewPage> with AntennaManager {
+  @override
+  void initState() {
+    open(enterRoomFormStore);
+
+    sync(enterRoomFormStore);
+
+    on((event) {
+      if (event is MyRoomsFound) {
+        Navigator.of(context).pushReplacementNamed(
+          "/room",
+          arguments: {"id": widget.id},
+        );
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final room =
-        listOfRoomStore.state!.items.firstWhere((item) => item.id == id);
+        listOfRoomStore.state!.items.firstWhere((item) => item.id == widget.id);
 
     final isFull = room.participantCount == room.maxParticipant;
 
@@ -30,7 +57,7 @@ class RoomPreviewPage extends StatelessWidget {
         return true;
       }
 
-      return myRooms.every((element) => element.id != id);
+      return myRooms.every((element) => element.id != widget.id);
     }();
 
     return Scaffold(
@@ -44,8 +71,8 @@ class RoomPreviewPage extends StatelessWidget {
                 const SizedBox(height: 32.0),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: paddingLeft,
-                    right: paddingRight,
+                    left: RoomPreviewPage.paddingLeft,
+                    right: RoomPreviewPage.paddingRight,
                   ),
                   child: RichText(
                     text: TextSpan(
@@ -90,8 +117,8 @@ class RoomPreviewPage extends StatelessWidget {
                 const SizedBox(height: 12.0),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: paddingLeft,
-                    right: paddingRight,
+                    left: RoomPreviewPage.paddingLeft,
+                    right: RoomPreviewPage.paddingRight,
                   ),
                   child: RichText(
                     text: TextSpan(
@@ -124,8 +151,8 @@ class RoomPreviewPage extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: paddingLeft,
-                    right: paddingRight,
+                    left: RoomPreviewPage.paddingLeft,
+                    right: RoomPreviewPage.paddingRight,
                   ),
                   child: Text(
                     room.description,
@@ -134,7 +161,7 @@ class RoomPreviewPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16.0),
                 const Padding(
-                  padding: EdgeInsets.only(left: paddingLeft),
+                  padding: EdgeInsets.only(left: RoomPreviewPage.paddingLeft),
                   child: Text(
                     "최신 인증 로그 ✅",
                     style: HeaderTextStyle(),
@@ -158,8 +185,8 @@ class RoomPreviewPage extends StatelessWidget {
         color: Colors.white,
         child: Container(
           padding: const EdgeInsets.only(
-            left: paddingLeft,
-            right: paddingRight,
+            left: RoomPreviewPage.paddingLeft,
+            right: RoomPreviewPage.paddingRight,
             bottom: 4.0,
             top: 4.0,
           ),
@@ -177,12 +204,12 @@ class RoomPreviewPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     fixedSize: const Size(
-                      bottomContainerHeight,
-                      bottomContainerHeight,
+                      RoomPreviewPage.bottomContainerHeight,
+                      RoomPreviewPage.bottomContainerHeight,
                     ),
                     minimumSize: const Size(
-                      bottomContainerHeight,
-                      bottomContainerHeight,
+                      RoomPreviewPage.bottomContainerHeight,
+                      RoomPreviewPage.bottomContainerHeight,
                     ),
                   ),
                   child: Icon(
@@ -198,23 +225,32 @@ class RoomPreviewPage extends StatelessWidget {
                         return;
                       }
 
-                      Navigator.of(context).pushReplacementNamed("/room");
+                      dispatch(EnterRoomRequested(widget.id));
                     },
                     style: ElevatedButton.styleFrom(
                       primary: isEntered ? null : Colors.grey[400],
-                      minimumSize: const Size.fromHeight(bottomContainerHeight),
+                      minimumSize: const Size.fromHeight(
+                          RoomPreviewPage.bottomContainerHeight),
                     ),
-                    child: Text(() {
-                      if (isFull) {
-                        return "정원이 가득 찼어요";
-                      }
+                    child: enterRoomFormStore.state
+                        ? Text(() {
+                            if (isFull) {
+                              return "정원이 가득 찼어요";
+                            }
 
-                      if (!isEntered) {
-                        return "이미 가입한 방이에요";
-                      }
+                            if (!isEntered) {
+                              return "이미 가입한 방이에요";
+                            }
 
-                      return "참여하기";
-                    }()),
+                            return "참여하기";
+                          }())
+                        : const SizedBox(
+                            width: 16.0,
+                            height: 16.0,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ),
               ],
