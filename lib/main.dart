@@ -2,6 +2,7 @@ import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:madeit/application/effects/auto_sign_in.dart';
+import 'package:madeit/application/effects/count_my_reactions.dart';
 import 'package:madeit/application/effects/enter_room.dart';
 import 'package:madeit/application/effects/env.dart';
 import 'package:madeit/application/effects/exit_room.dart';
@@ -22,6 +23,7 @@ import 'package:madeit/application/effects/ws.dart';
 import 'package:madeit/application/events/app_started.dart';
 import 'package:madeit/application/stores/chat.dart';
 import 'package:madeit/application/stores/list_of_room.dart';
+import 'package:madeit/application/stores/my_reaction_counts.dart';
 import 'package:madeit/application/stores/my_rooms.dart';
 import 'package:madeit/application/stores/sign_in_form.dart';
 import 'package:madeit/application/stores/sign_out_form.dart';
@@ -161,6 +163,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     open(signOutFormStore);
     open(listOfRoomStore);
     open(myRoomsStore);
+    open(myReactionCountsStore);
     open(chatStore);
 
     on(envEffect);
@@ -181,6 +184,7 @@ class _ApplicationState extends State<Application> with AntennaManager {
     on(findListOfChatEffect);
     on(enterRoomEffect);
     on(exitRoomEffect);
+    on(countMyReactionsEffect);
 
     dispatch(const AppStarted());
 

@@ -4,11 +4,10 @@ import 'package:madeit/composition/common/widgets/record_item.dart';
 
 class RecordGroup extends StatelessWidget {
   final String? label;
+  final List<RecordItem> items;
 
-  const RecordGroup({
-    Key? key,
-    this.label,
-  }) : super(key: key);
+  const RecordGroup({Key? key, this.label, this.items = const []})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,33 +32,14 @@ class RecordGroup extends StatelessWidget {
           ],
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Spacer(),
-              Expanded(
-                flex: 9,
-                child: RecordItem(
-                  icon: Icons.verified_outlined,
-                  label: "잘했어요",
-                  content: "101",
+            children: [
+              const Spacer(),
+              for (final item in items)
+                Expanded(
+                  flex: 9,
+                  child: item,
                 ),
-              ),
-              Expanded(
-                flex: 9,
-                child: RecordItem(
-                  icon: Icons.favorite_outline,
-                  label: "좋아요",
-                  content: "324",
-                ),
-              ),
-              Expanded(
-                flex: 9,
-                child: RecordItem(
-                  icon: Icons.waving_hand_outlined,
-                  label: "힘내요",
-                  content: "75",
-                ),
-              ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ],

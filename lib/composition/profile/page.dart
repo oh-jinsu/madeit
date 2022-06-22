@@ -1,6 +1,7 @@
 import 'package:antenna/antenna.dart';
 import 'package:flutter/material.dart';
 import 'package:madeit/application/events/sign_out_requested.dart';
+import 'package:madeit/application/stores/my_reaction_counts.dart';
 import 'package:madeit/application/stores/sign_out_form.dart';
 import 'package:madeit/application/stores/user.dart';
 import 'package:madeit/composition/common/constants/strings.dart';
@@ -9,6 +10,7 @@ import 'package:madeit/composition/common/properties/text_style.dart';
 import 'package:madeit/composition/common/widgets/avatar.dart';
 import 'package:madeit/composition/common/widgets/navigation_bar.dart';
 import 'package:madeit/composition/common/widgets/record_group.dart';
+import 'package:madeit/composition/common/widgets/record_item.dart';
 import 'package:madeit/composition/profile/widget/group.dart';
 import 'package:madeit/composition/profile/widget/menu.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,6 +28,8 @@ class _ProfilePageState extends State<ProfilePage> with AntennaManager {
     sync(userStore);
 
     sync(signOutFormStore);
+
+    sync(myReactionCountsStore);
 
     super.initState();
   }
@@ -79,7 +83,29 @@ class _ProfilePageState extends State<ProfilePage> with AntennaManager {
                 ),
               ),
               const SizedBox(height: 16.0),
-              const RecordGroup(),
+              if (myReactionCountsStore.state != null)
+                RecordGroup(
+                  items: [
+                    RecordItem(
+                      icon: Icons.verified_outlined,
+                      label: "잘했어요",
+                      content:
+                          myReactionCountsStore.state!.goodCount.toString(),
+                    ),
+                    RecordItem(
+                      icon: Icons.favorite_outline,
+                      label: "좋아요",
+                      content:
+                          myReactionCountsStore.state!.loveCount.toString(),
+                    ),
+                    RecordItem(
+                      icon: Icons.waving_hand_outlined,
+                      label: "힘내요",
+                      content:
+                          myReactionCountsStore.state!.comeOnCount.toString(),
+                    ),
+                  ],
+                ),
               const SizedBox(height: 16.0),
               const ProfileGroup(
                 children: [

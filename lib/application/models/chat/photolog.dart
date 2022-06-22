@@ -1,4 +1,3 @@
-import 'package:madeit/application/models/chat/chat.dart';
 import 'package:madeit/application/models/chat/user.dart';
 import 'package:madeit/application/models/user.dart';
 
