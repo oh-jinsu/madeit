@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/refresh.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/list_of_chat_found.dart';
@@ -14,11 +15,13 @@ final findListOfChatEffect = when<MoreChatsRequested>((event) async {
   dispatch(ListOfChatPending(roomId: event.roomId));
 
   final response = await retry(
-    () async => get(
-      "chats?room_id=${event.roomId}${event.cursor != null ? "&cursor=${event.cursor}" : ""}&limit=20",
-      headers: await bearerTokenHeader(),
+    refresh(
+      get(
+        "chats?room_id=${event.roomId}${event.cursor != null ? "&cursor=${event.cursor}" : ""}&limit=20",
+        headers: await bearerTokenHeader(),
+      ),
     ),
-  );
+  )();
 
   if (response is! SuccessResponse) {
     return;

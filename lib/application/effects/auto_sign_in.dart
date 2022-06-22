@@ -1,5 +1,5 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/provider_injected.dart';
 import 'package:madeit/application/events/sign_in_cancled.dart';
@@ -22,13 +22,13 @@ final autoSignInEffect = when<ProviderInjected>((event) async {
   dispatch(const SignInPending());
 
   final response = await retry(
-    () => post(
+    post(
       "auth/refresh",
       body: {
         "refresh_token": refreshToken,
       },
     ),
-  );
+  )();
 
   if (response is! SuccessResponse) {
     return dispatch(const SignInCanceled());

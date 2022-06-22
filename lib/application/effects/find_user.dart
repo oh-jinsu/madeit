@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/refresh.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/events/sign_in_finished.dart';
 import 'package:madeit/application/events/sign_up_finished.dart';
@@ -20,8 +21,8 @@ findUserEffect(dynamic event) {
 
 _findUser() async {
   final response = await retry(
-    () async => get("users/me", headers: await bearerTokenHeader()),
-  );
+    refresh(get("users/me", headers: await bearerTokenHeader())),
+  )();
 
   if (response is! SuccessResponse) {
     return;

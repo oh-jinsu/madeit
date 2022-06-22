@@ -8,103 +8,115 @@ import 'package:madeit/utilities/debug.dart';
 
 String host = "";
 
-Future<Response> get(
+Future<Response> Function() get(
   String endpoint, {
   Map<String, String>? headers,
-}) async {
-  final result = await http.get(toFullUri(endpoint), headers: headers);
+}) {
+  return () async {
+    final result = await http.get(toFullUri(endpoint), headers: headers);
 
-  return parseBody(result);
+    return parseBody(result);
+  };
 }
 
-Future<Response> post(
-  String endpoint, {
-  Map<String, String>? headers,
-  Object? body,
-  Encoding? encoding,
-}) async {
-  final result = await http.post(
-    toFullUri(endpoint),
-    headers: withContentTypeHeader(headers),
-    body: stringify(body),
-    encoding: encoding,
-  );
-
-  return parseBody(result);
-}
-
-Future<Response> put(
+Future<Response> Function() post(
   String endpoint, {
   Map<String, String>? headers,
   Object? body,
   Encoding? encoding,
-}) async {
-  final result = await http.put(
-    toFullUri(endpoint),
-    headers: withContentTypeHeader(headers),
-    body: stringify(body),
-    encoding: encoding,
-  );
+}) {
+  return () async {
+    final result = await http.post(
+      toFullUri(endpoint),
+      headers: withContentTypeHeader(headers),
+      body: stringify(body),
+      encoding: encoding,
+    );
 
-  return parseBody(result);
+    return parseBody(result);
+  };
 }
 
-Future<Response> patch(
+Future<Response> Function() put(
   String endpoint, {
   Map<String, String>? headers,
   Object? body,
   Encoding? encoding,
-}) async {
-  final result = await http.patch(
-    toFullUri(endpoint),
-    headers: withContentTypeHeader(headers),
-    body: stringify(body),
-    encoding: encoding,
-  );
+}) {
+  return () async {
+    final result = await http.put(
+      toFullUri(endpoint),
+      headers: withContentTypeHeader(headers),
+      body: stringify(body),
+      encoding: encoding,
+    );
 
-  return parseBody(result);
+    return parseBody(result);
+  };
 }
 
-Future<Response> delete(
+Future<Response> Function() patch(
   String endpoint, {
   Map<String, String>? headers,
   Object? body,
   Encoding? encoding,
-}) async {
-  final result = await http.delete(
-    toFullUri(endpoint),
-    headers: withContentTypeHeader(headers),
-    body: stringify(body),
-    encoding: encoding,
-  );
+}) {
+  return () async {
+    final result = await http.patch(
+      toFullUri(endpoint),
+      headers: withContentTypeHeader(headers),
+      body: stringify(body),
+      encoding: encoding,
+    );
 
-  return parseBody(result);
+    return parseBody(result);
+  };
 }
 
-Future<Response> multipart(
+Future<Response> Function() delete(
+  String endpoint, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+}) {
+  return () async {
+    final result = await http.delete(
+      toFullUri(endpoint),
+      headers: withContentTypeHeader(headers),
+      body: stringify(body),
+      encoding: encoding,
+    );
+
+    return parseBody(result);
+  };
+}
+
+Future<Response> Function() multipart(
   String endpoint, {
   String method = "POST",
   required File file,
   Map<String, String>? headers,
-}) async {
-  final request = http.MultipartRequest(
-    method,
-    toFullUri(endpoint),
-  );
+}) {
+  return () async {
+    final request = http.MultipartRequest(
+      method,
+      toFullUri(endpoint),
+    );
 
-  if (headers != null) {
-    request.headers.addAll(headers);
-  }
+    if (headers != null) {
+      request.headers.addAll(headers);
+    }
 
-  final mutlipartFile = await http.MultipartFile.fromPath("file", file.path);
+    final mutlipartFile = await http.MultipartFile.fromPath("file", file.path);
 
-  request.files.add(mutlipartFile);
+    request.files.add(mutlipartFile);
 
-  final streamedResponse = await request.send();
+    final streamedResponse = await request.send();
 
-  final result = await http.Response.fromStream(streamedResponse);
+    final result = await http.Response.fromStream(streamedResponse);
 
-  return parseBody(result);
+    return parseBody(result);
+  };
 }
 
 Response parseBody(http.Response response) {

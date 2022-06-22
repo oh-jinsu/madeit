@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/refresh.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/events/enter_room_finished.dart';
 import 'package:madeit/application/events/my_rooms_found.dart';
@@ -20,8 +21,8 @@ findMyRoomsEffect(dynamic event) async {
 
 _findMyRooms() async {
   final response = await retry(
-    () async => get("rooms/mine", headers: await bearerTokenHeader()),
-  );
+    refresh(get("rooms/mine", headers: await bearerTokenHeader())),
+  )();
 
   if (response is! SuccessResponse) {
     return;

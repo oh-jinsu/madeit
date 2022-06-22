@@ -1,5 +1,5 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/sign_in_cancled.dart';
 import 'package:madeit/application/events/sign_in_finished.dart';
@@ -12,13 +12,13 @@ import 'package:madeit/utilities/dependency.dart';
 
 final signInEffect = when<ThirdPartyAccountFound>((event) async {
   final response = await retry(
-    () => post(
+    post(
       "auth/signin?provider=${event.provider}",
       body: {
         "id_token": event.idToken,
       },
     ),
-  );
+  )();
 
   if (response is FailureResponse) {
     if (response.code == 2) {

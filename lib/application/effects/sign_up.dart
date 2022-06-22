@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/refresh.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/sign_up_canceled.dart';
@@ -15,14 +16,14 @@ final signUpEffect = when<SignUpSubmitted>((event) async {
   dispatch(const SignUpPending());
 
   final response = await retry(
-    () => post(
+    post(
       "auth/signup?provider=${event.provider}",
       body: {
         "id_token": event.idToken,
         "name": event.name,
       },
     ),
-  );
+  )();
 
   if (response is! SuccessResponse) {
     return dispatch(const SignUpCanceled());
@@ -42,29 +43,33 @@ final signUpEffect = when<SignUpSubmitted>((event) async {
 
   if (avatar != null) {
     final response = await retry(
-      () async => multipart(
-        "images",
-        file: avatar,
-        headers: await bearerTokenHeader(),
+      refresh(
+        multipart(
+          "images",
+          file: avatar,
+          headers: await bearerTokenHeader(),
+        ),
       ),
-    );
+    )();
 
     if (response is SuccessResponse) {
       final avatarId = response.body["id"];
 
       await retry(
-        () async => patch(
-          "users/me",
-          body: [
-            {
-              "op": "replace",
-              "path": "/avatar_id",
-              "value": avatarId,
-            },
-          ],
-          headers: await bearerTokenHeader(),
+        refresh(
+          patch(
+            "users/me",
+            body: [
+              {
+                "op": "replace",
+                "path": "/avatar_id",
+                "value": avatarId,
+              },
+            ],
+            headers: await bearerTokenHeader(),
+          ),
         ),
-      );
+      )();
     }
   }
 

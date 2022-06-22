@@ -1,5 +1,6 @@
 import 'package:antenna/antenna.dart';
-import 'package:madeit/application/effects/functions/protect.dart';
+import 'package:madeit/application/effects/functions/refresh.dart';
+import 'package:madeit/application/effects/functions/retry.dart';
 import 'package:madeit/application/effects/functions/with_auth.dart';
 import 'package:madeit/application/effects/predicates/typeof.dart';
 import 'package:madeit/application/events/sign_out_finished.dart';
@@ -14,9 +15,9 @@ final signOutEffect = when<SignOutRequested>((event) async {
 
   dispatch(const SignOutPending());
 
-  await retry(
-    () async => post("auth/signout", headers: await bearerTokenHeader()),
-  );
+  await retry(refresh(
+    post("auth/signout", headers: await bearerTokenHeader()),
+  ))();
 
   await repository.deleteAccessToken();
 
